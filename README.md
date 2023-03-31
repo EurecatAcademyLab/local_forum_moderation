@@ -51,7 +51,7 @@ to complete the installation from the command line.
 
 ## License ##
 
-2022 Aina Palacios & Eurecat.dev
+2022 Aina Palacios & JuanCarlo Castillo & Eurecat.dev
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
