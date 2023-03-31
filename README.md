@@ -2,9 +2,9 @@
 
 Describe the plugin.
 
-The plugin is in charge of reading the forums in Moodle, and detecting inappropiate content, saving and displaying the results. In addition, the plugin incorporates a set of actions and rules to avoid sensitive content in the forum.
+The plugin is in charge of reading the forums in Moodle, and detecting inappropriate content, saving and displaying the results. In addition, the plugin incorporates a set of actions and rules to avoid sensitive content in the forum.
 
-The module is intented to give authority to a reviewer to detect if the text detected as "Hate" is inappropiate. 
+The module is intented to give authority to a reviewer to detect if the text detected as "Hate" is inappropriate. 
 
 
 More details.
