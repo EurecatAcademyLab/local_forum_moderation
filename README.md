@@ -4,26 +4,22 @@ Describe the plugin.
 
 The plugin is in charge of reading the forums in Moodle, and detecting inappropriate content, saving and displaying the results. In addition, the plugin incorporates a set of actions and rules to avoid sensitive content in the forum.
 
-The module is intented to give authority to a reviewer to detect if the text detected as "Hate" is inappropriate. 
-
+Thus allowing automatic moderation of the forums with a very precise level of precision, and quarantining the worst messages until they are validated by a moderator.
 
 More details.
+When a user posts a message in any forum, the plugin will read the content, save the result and depending on the detected level will perform one of the following actions:
 
-When a user makes a post to any forum, the plugin will read the content, call the API, save the result and depending on the detected level will do one of the following actions:
+If the detected level is 1 - "Warning", it will consider that the content should be reviewed by a subjective authority. Therefore it will show the local plugin for a review.
 
-If the detected level is 1, it will consider that the contigut has to be checked by a subjective authority. Therefore it will show the local plugin for a review.
+If the detected level is 2 - "Danger", it will consider that this content should not be on the platform and will therefore be quarantined. This quarantine consists of removing the message until a reviewer determines if a final removal is necessary or if, for context, the detected message can be determined as an exception.
 
-If the level detected is 2, it will be considered that this content should not be on the platform and therefore it will be quarantined. This quarantine consists of removing the post until a reviewer determines whether a final removal is necessary or if, for context, the detected post can be determined as an exception.
+Messages determined to be "Danger" will be prevented from accessing the message and will be marked as unavailable.
 
-The analysis will quarantine those messages that are level 2, preventing access to it and giving the notice of unavailable.
+It will be necessary for the authorized user to certify these messages and give approval for each one, having the possibility to accept or reject the module's suggestion. As the messages depend on their context, the reviewer has the possibility to view the message within the discussion to decide if it is appropriate.
 
-It will be necessary for the authorized user to certify these messages and give approval for each one, having the possibility to accept or decline the module's suggestion. Since the messages depend on their context, the reviewer has the possibility to view the message within the discussion to decide if it is appropriate.
+The module provides relevant information such as: the user, the course, the reasons why the message has been quarantined, a link to the discussion to view the context and a suggestion on how to proceed: Delete the message if it is detected as "Danger" level or review it in case it is "warning" level.
 
-In the meantime, messages rated as level 2 will be quarantined.
-
-The module offers relevant information such as: the user, the course, the reasons why the message has been quarantined, a link to the discussion to see the context and a suggestion on how to proceed: Delete the message if it is detected as level 2 or review it in case it is level 1.
-
-Finally, those messages detected will be displayed or not depending on the review.
+Finally, the detected messages will be displayed or not depending on the review.
 
 
 ## Installing via uploaded ZIP file ##
