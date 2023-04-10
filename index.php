@@ -156,12 +156,10 @@ if ($allowview) {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'history']);
-            // $output .= table($courseselected, 1, $alertselected);
             $output .= $premium->definition();
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade', 'id' => 'graphs']);
-            // $output .= graph($courseselected);
             $output .= $premium->definition();
         $output .= html_writer::end_tag('div');
     $output .= html_writer::end_tag('div');
