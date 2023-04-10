@@ -1,25 +1,24 @@
 # forum_review #
 
-Describe the plugin.
+Describe the Plugin
 
-The plugin is in charge of reading the forums in Moodle, and detecting inappropriate content, saving and displaying the results. In addition, the plugin incorporates a set of actions and rules to avoid sensitive content in the forum.
+The Multilanguage Plugin is designed to assist forum moderators in identifying potentially inappropriate or harmful content and preventing its misuse by automating certain decisions.
 
-Thus allowing automatic moderation of the forums with a very precise level of precision, and quarantining the worst messages until they are validated by a moderator.
+The module offers highly accurate automated moderation of forums and can quarantine the most problematic messages until they are reviewed by a moderator. The plugin also provides a variety of rules and actions to simplify the moderation process.
 
-More details.
-When a user posts a message in any forum, the plugin will read the content, save the result and depending on the detected level will perform one of the following actions:
+More Details
 
-If the detected level is 1 - "Warning", it will consider that the content should be reviewed by a subjective authority. Therefore it will show the local plugin for a review.
+When a user posts a message in any forum, the plugin reads the content, saves the result, and performs one of the following actions based on the detected level:
 
-If the detected level is 2 - "Danger", it will consider that this content should not be on the platform and will therefore be quarantined. This quarantine consists of removing the message until a reviewer determines if a final removal is necessary or if, for context, the detected message can be determined as an exception.
+      If the detected level is 1 - "Warning," the content should be reviewed by a subjective authority. Therefore, it will show the local plugin for a review.
 
-Messages determined to be "Danger" will be prevented from accessing the message and will be marked as unavailable.
+      If the detected level is 2 - "Danger," the content should not be on the platform, and it will be quarantined. This quarantine involves removing the message until a reviewer determines if a final removal is necessary, or if, for context, the detected message can be determined as an exception.
 
-It will be necessary for the authorized user to certify these messages and give approval for each one, having the possibility to accept or reject the module's suggestion. As the messages depend on their context, the reviewer has the possibility to view the message within the discussion to decide if it is appropriate.
+Messages determined to be "Danger" will be prevented from accessing the message and marked as unavailable. The authorized user must certify these messages and give approval for each one, with the possibility to accept or reject the module's suggestion. As the messages depend on their context, the reviewer has the possibility to view the message within the discussion to decide if it is appropriate.
 
-The module provides relevant information such as: the user, the course, the reasons why the message has been quarantined, a link to the discussion to view the context and a suggestion on how to proceed: Delete the message if it is detected as "Danger" level or review it in case it is "warning" level.
+The module offers important information to forum moderators, including the user who posted the message, the course in which it was posted, the reasons why the message has been quarantined, a link to the discussion for context, and a suggestion on how to proceed. For example, if the message is deemed "Danger" level, the suggestion might be to delete it, while if it is "Warning" level, the suggestion might be to review it.
 
-Finally, the detected messages will be displayed or not depending on the review.
+The plugin provides customization controls for tailoring its functionality and can be configured to operate at varying levels of accuracy based on the selected service level agreement.
 
 
 ## Installing via uploaded ZIP file ##
