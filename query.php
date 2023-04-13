@@ -36,7 +36,7 @@ require_login();
  */
 function join_tables_query_update($lastmodified, $maxnum) {
 
-    $sql = "SELECT p.id , p.message ,  p.subject , u.id as 'user', d.id as 'd_id' , f.id as 'f_id' , f.course as 'c_id', p.modified
+    $sql = "SELECT p.id , p.message ,  p.subject , u.id as user, d.id as d_id, f.id as f_id, f.course as c_id, p.modified
     FROM {forum_posts} p
     JOIN {user} u ON p.userid = u.id
     JOIN {forum_discussions} d ON p.discussion = d.id
