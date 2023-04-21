@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
+ * Form to delete button.
  *
- * Plugin version and other meta-data are defined here.
  * @package     local_forum_review
- * @author      2022 Aina Palacios
- * @copyright   2022 Aina Palacios & Eurecat.dev
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_review/table.php');
 require_once($CFG->libdir.'/formslib.php');
+require_once($CFG->dirroot. '/local/forum_review/table.php');
 require_login();
 
 /**

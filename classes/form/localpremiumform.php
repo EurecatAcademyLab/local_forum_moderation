@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Display information about all the local_group_generator in the requested course.
+ * Display information about all the local_forum_review premium version.
  *
  * @package     local_forum_review
- * @author      2022 JuanCarlo Castillo <juancarlo.castillo20@gmail.com>
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @copyright   2022 JuanCa Castillo & Eurecat.dev
  */
 
 
@@ -46,38 +46,58 @@ class premium_form extends moodleform {
         // Start with the object form.
         $url = 'https://lab.eurecatacademy.org';
 
+        $output .= html_writer::start_tag('div');
+            $output .= html_writer::tag('h4', get_string('phrase', 'local_forum_review'));
+        $output .= html_writer::end_tag('div');
+
         $output .= html_writer::start_tag('div', ['class' => 'd-flex justify-content-center mt-4']);
         $output .= html_writer::start_tag('div',
-        ['style' => 'background-image: linear-gradient(to bottom left, #465f9b, #755794, #6d76ae); width:30%;',
-        'class' => 'h-75 border mt-5 flex-column p-5 rounded']);
+        ['style' => 'background-image: linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);',
+        'class' => 'border mt-5 flex-column rounded pt-4 pb-3 w-100']);
         $output .= html_writer::tag('h4',
             get_string('premium', 'local_forum_review'),
-            array('class' => 'titol d-flex justify-content-center text-light font-weight-normal'));
+            array('class' => 'titol d-flex justify-content-center text-light font-weight-normal mb-4'));
 
+        $output .= html_writer::start_tag('div', ['class' => 'row']);
+
+        $output .= html_writer::start_tag('div', ['class' => 'col-md-4 d-flex justify-content-around']);
         $output .= html_writer::start_tag('div');
         $output .= html_writer::start_tag('ul');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none', 'class' => 'mt-5'));
-        $output .= html_writer::tag('p', get_string('nopubli', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
-        $output .= html_writer::tag('p', get_string('keepquarentine', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
-        $output .= html_writer::tag('p', get_string('removequarentine', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
-        $output .= html_writer::tag('p', get_string('desblockhistory', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
-        $output .= html_writer::tag('p', get_string('rereview', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
-        $output .= html_writer::tag('p', get_string('desblockanalytic', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
-        $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none', 'class' => 'mb-4'));
-        $output .= html_writer::tag('p', get_string('exportdata', 'local_forum_review'), ['class' => 'text-light']);
-        $output .= html_writer::end_tag('li');
+
+            $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
+            $output .= html_writer::tag('p', get_string('keepquarentine', 'local_forum_review'), ['class' => 'text-light']);
+            $output .= html_writer::end_tag('li');
+
+            $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
+            $output .= html_writer::tag('p', get_string('nopubli', 'local_forum_review'), ['class' => 'text-light']);
+            $output .= html_writer::end_tag('li');
+
+            $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
+            $output .= html_writer::tag('p', get_string('desblockanalytic', 'local_forum_review'), ['class' => 'text-light']);
+            $output .= html_writer::end_tag('li');
+
         $output .= html_writer::end_tag('ul');
+        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', ['class' => 'col-md-4']);
+        $output .= html_writer::start_tag('div');
+        $output .= html_writer::start_tag('ul');
+
+            $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
+            $output .= html_writer::tag('p', get_string('rereview', 'local_forum_review'), ['class' => 'text-light']);
+            $output .= html_writer::end_tag('li');
+
+            $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
+            $output .= html_writer::tag('p', get_string('exportdata', 'local_forum_review'), ['class' => 'text-light']);
+            $output .= html_writer::end_tag('li');
+
+            $output .= html_writer::start_tag('li', array('style' => 'list-style-type: none;'));
+            $output .= html_writer::tag('p', get_string('removequarentine', 'local_forum_review'), ['class' => 'text-light']);
+            $output .= html_writer::end_tag('li');
+
+        $output .= html_writer::end_tag('ul');
+        $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', ['class' => 'd-flex justify-content-center mt-3 mx-5']);
@@ -85,17 +105,6 @@ class premium_form extends moodleform {
             $output .= $OUTPUT->single_button($url,
                 get_string('premiumpage', 'local_forum_review'), 'post', $options);
         $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
-        $output .= html_writer::start_tag('div', [
-            'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-4 border w-75']);
-        $output .= html_writer::empty_tag('img', array('src' => "pix/hdtable.png", 'style' => 'width: 100%'));
-        $output .= html_writer::end_tag('div');
-        $output .= html_writer::start_tag('div', [
-            'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
-        $output .= html_writer::empty_tag('img', array('src' => "pix/hdgraph.png", 'style' => 'width: 100%'));
         $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 

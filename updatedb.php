@@ -15,19 +15,18 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * The cyclic function.
  *
  * @package     local_forum_review
- * @author      2022 Aina Palacios
- * @copyright   2022 Aina Palacios & Eurecat.dev
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot. '/local/forum_review/model.php');
-require_once($CFG->dirroot. '/local/forum_review/query.php');
-require_once($CFG->dirroot. '/local/forum_review/sendmessages.php');
+require_once($CFG->dirroot. '/local/forum_review/lib.php');
 
 /**
  * To Update or insert record on forum review table.
@@ -46,6 +45,7 @@ function getpostsfr($lastmodified, $maxnum) {
         $record->post_id = $m->id;
         $record->message = strip_tags($m->message);
         $record->user_id = $m->user;
+        $record->count_user = get_count_userpost($m->user);
         $record->subject = $m->subject;
         $record->discussion_id = $m->d_id;
         $record->forum_id = $m->f_id;
@@ -69,8 +69,9 @@ function getpostsfr($lastmodified, $maxnum) {
 
         $record->reject = 0;
         $record->checked = 0;
-        $record->hate_detected = implode(",", $prediction['words']);
-        $record->last_modified = $m->modified;
+        if (!empty($prediction['words'])) {
+            $record->hate_detected = implode(",", $prediction['words']);
+        }        $record->last_modified = $m->modified;
 
         if ($DB->record_exists('local_forum_review', ['post_id' => $record->post_id])) {
             $record->id = $DB->get_field('local_forum_review', 'id', ['post_id' => $record->post_id]);

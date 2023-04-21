@@ -15,10 +15,11 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * html render.
+ *
  * @package     local_forum_review
- * @author      2022 Aina Palacios
- * @copyright   2022 Aina Palacios & Eurecat.dev
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -40,7 +41,7 @@ function html_header($courseselected) {
 
             $output .= html_writer::start_tag('div', ['class' => 'w-100 text-center']);
             $output .= html_writer::tag('hr', '');
-            $course = get_string('course', 'local_textanalysis') . get_name_course($courseselected)->name;
+            $course = get_string('course', 'local_forum_review') . get_name_course($courseselected)->name;
             $output .= html_writer::tag('span', $course, ['class' => 'h1 p-3 center']);
             $output .= html_writer::start_tag('a', ['href' => $CFG->wwwroot.'/course/view.php?id='.$courseselected]);
             $output .= html_writer::tag('i', '', ['class' => 'fa fa-link p-1']);

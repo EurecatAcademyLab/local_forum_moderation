@@ -15,19 +15,18 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Display Principal Table.
  *
  * @package     local_forum_review
- * @author      2022 Aina Palacios
- * @copyright   2022 Aina Palacios & Eurecat.dev
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_review/index.php');
-require_once($CFG->dirroot. '/local/forum_review/query.php');
+require_once($CFG->dirroot. '/local/forum_review/lib.php');
 require_once($CFG->dirroot. '/local/forum_review/delete.php');
 require_once($CFG->dirroot. '/local/forum_review/accept.php');
 require_login();
@@ -107,6 +106,7 @@ function table($courseselected, $checked, $alertselected) {
             $table->align = ['left', 'left', 'left', 'center', 'center', 'center', 'right', 'center', 'center'];
             $table->head = [
                 get_string('user', 'local_forum_review'),
+                get_string('count', 'local_forum_review'),
                 get_string('hate_detected', 'local_forum_review'),
                 get_string('message', 'local_forum_review'),
                 get_string('subject', 'local_forum_review'),
@@ -118,6 +118,7 @@ function table($courseselected, $checked, $alertselected) {
             $table->align = ['left', 'left', 'left', 'center', 'center', 'center', 'center', 'center'];
             $table->head = [
                 get_string('user', 'local_forum_review'),
+                get_string('count', 'local_forum_review'),
                 get_string('hate_detected', 'local_forum_review'),
                 get_string('message', 'local_forum_review'),
                 get_string('subject', 'local_forum_review'),
@@ -136,7 +137,10 @@ function table($courseselected, $checked, $alertselected) {
             // User name.
             $nameuser = get_name_user($m->user_id);
             $us = $route.'/user/profile.php?id='.$m->user_id;
-            $user = '<a href="'.$us.'" class='.$cl.' target="_blank"><strong>'.$nameuser->name.'</strong></a>';
+            $user = '<a href="'.$us.'" class='.$cl.' target="_blank"><strong>'.$nameuser.'</strong></a>';
+
+            // Count.
+            $count = intval($m->count_user);
 
             // Hate detected.
             $detected = explode(",", $m->hate_detected); // Array.
@@ -149,9 +153,11 @@ function table($courseselected, $checked, $alertselected) {
             $discussion = '<a href="'.$disc.'" class='.$cl.' target="_blank"><strong>'.$name->name.'</strong></a>';
 
             // Forum.
-            $name = $DB->get_record_sql("SELECT fd.name FROM {forum_discussions} fd WHERE fd.id = ?;", array($m->forum_id));
-            $foru = $route.'/mod/forum/view.php?id='.$m->forum_id;
-            $forum = '<a href="'.$foru.'" class='.$cl.' target="_blank"><strong>'.$name->name.'</strong></a>';
+            $name = $DB->get_field('forum', 'name', ['id' => $m->forum_id]);
+            $sql = "SELECT cm.id FROM {forum} f JOIN {course_modules} cm ON cm.instance = f.id WHERE f.id = :id";
+            $i = $DB->get_field_sql($sql, array('id' => $m->forum_id));
+            $foru = $route.'/mod/forum/view.php?id='.$i;
+            $forum = '<a href="'.$foru.'" class='.$cl.' target="_blank"><strong>'.$name.'</strong></a>';
 
             // Recommendation.
             $m->advice = '<strong>'. get_string($m->advice, 'local_forum_review') . '</strong>';
@@ -163,7 +169,7 @@ function table($courseselected, $checked, $alertselected) {
             if ($checked == 1) {
                 if ($m->reject) {
                     $cl1 = "btn rounded-lg btn-outline-danger disabled";
-                    $delete = '<p class='.$cl1.' aria-disabled="true">'.get_string('deleted', 'local_forum_review').' </p>';
+                    $delete = '<p class='.$cl1.' aria-disabled="true" >'.get_string('deleted', 'local_forum_review').' </p>';
                 } else {
                     $delete = '<p class="btn rounded-lg btn-outline-success disabled" aria-disabled="true"> '.$accept.' </p>';
                 }
@@ -205,10 +211,10 @@ function table($courseselected, $checked, $alertselected) {
                 // Course.
                 $name = get_name_course($m->course_id);
                 $cours = $route.'/course/view.php?id='.$m->course_id;
-                $course = '<a href="'.$cours.'" class='.$cl.' target="_blank"><strong>'.$name->name.'</strong></a>';
-                $arraydata = [$user, $detected, $m->message, $m->subject , $discussion , $forum ,  $course, $lastmodified];
+                $course = '<a href="'.$cours.'" class='.$cl.' target="_blank"><strong>'.$name.'</strong></a>';
+                $arraydata = [$user, $count, $detected, $m->message, $m->subject , $discussion , $forum ,  $course, $lastmodified];
             } else {
-                $arraydata = [$user, $detected, $m->message, $m->subject , $discussion , $forum , $lastmodified];
+                $arraydata = [$user, $count, $detected, $m->message, $m->subject , $discussion , $forum , $lastmodified];
 
             }
 

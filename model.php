@@ -15,17 +15,19 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Connect with external file.
  *
  * @package     local_forum_review
- * @author      2022 Aina Palacios
- * @copyright   2022 Aina Palacios & Eurecat.dev
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
+require_once($CFG->dirroot. '/local/forum_review/lib.php');
+
 require_login();
 
 /**
@@ -36,7 +38,7 @@ require_login();
 function predict($text) {
     $text = clean($text);
     $inputapi[1] = $text;
-    $makecall = callapifr('POST', 'https://tutor-ia-api.herokuapp.com/hate', json_encode($inputapi, true));
+    $makecall = callapifr('POST', 'http://82.223.100.56/hate', json_encode($inputapi, true));
     $response = json_decode($makecall, true);
     return $response[1];
 }
@@ -82,7 +84,7 @@ function callapifr($method, $url, $data) {
     // OPTIONS.
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-      'APIKEY: '.get_config('local_textanalysis', 'apikey'),
+      'APIKEY: '.get_config('local_forum_review', 'apikey'),
       'Content-Type: application/json',
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

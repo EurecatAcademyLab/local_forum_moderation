@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * display privacity in local_group_generator.
+ * display privacity in local_forum_review.
  *
  * @package     local_forum_review
- * @author      2022 JuanCarlo Castillo <juancarlo.castillo20@gmail.com>
+ * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
+ * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @copyright   2022 JuanCa Castillo & Eurecat.dev
  */
 
 namespace core_completion\privacy;
