@@ -42,6 +42,15 @@ The plugin's stay has a temporary duration, and by accepting the privacy setting
  
 If you have any questions, doubts or suggestions please do not hesitate to contact us.  
 
+## Regarding the AI approach ##
+
+This tool uses AI models to detect hate speech, such as language models like Moderation by OpenAI (https://platform.openai.com/docs/models/moderation) and open ones. It is designed to be as ethical and responsible as possible. The tools using these models are developed with a strong emphasis on privacy and data protection, and are designed to ensure that user data is handled with the utmost care and respect.
+
+The development team of the plugin is committed to continuously improving the ethical standards of their product. To achieve this, they are actively working on applying new ethical toolboxes and guidelines to their development process. These toolboxes and guidelines are designed to help the team identify and address ethical concerns and considerations throughout the entire product lifecycle, from conception to implementation.
+
+The AI models selected to be used are typically trained on large datasets that have been carefully curated to ensure that they are representative and diverse. This means that the models are not biased towards any particular group or ideology, and that they are capable of identifying hate speech in all its forms, regardless of who is speaking or what they are saying. More information can be found here: https://platform.openai.com/docs/guides/moderation/overview.
+
+It's important to note that tools with enhanced functionality provided by AI models are never perfect and should be used in conjunction with human moderation and oversight. This helps to ensure that any potential errors or biases are caught and corrected before they have a chance to cause harm. The overall design and user interface of this tool is intended to assist human forum moderators, with final decisions left to human judgment.
 
 ## Installing via uploaded ZIP file ##
 
