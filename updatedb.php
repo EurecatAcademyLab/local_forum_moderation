@@ -80,10 +80,6 @@ function getpostsfr($lastmodified, $maxnum) {
             $DB->insert_record('local_forum_review', $record);
         }
 
-        // Messages.
-        if ($record->rating > 0) {
-            send_post_to_revision($record->user_id);
-        }
     }
 }
 

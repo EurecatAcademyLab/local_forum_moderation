@@ -24,9 +24,14 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+require_once(__DIR__.'/../../config.php');
+require_once($CFG->dirroot. '/local/forum_review/lib.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_login();
 
+$hassiteconfig = true;
 
-if ($hassiteconfig) {
+if (isset($hassiteconfig) && $hassiteconfig) {
     $ADMIN->add(
         'localplugins',
         new admin_category('local_forum_review',
@@ -43,74 +48,57 @@ if ($hassiteconfig) {
             1
         ));
 
-        $privacyurl = new moodle_url('https://lab.eurecatacademy.org/sample-page');
-        $privacylink = \html_writer::link($privacyurl, get_string('privacy_policy', 'local_forum_review'));
-        $settingspage->add(new admin_setting_configcheckbox(
-            'local_forum_review/privacy',
-            new lang_string('privacy', 'local_forum_review'),
-            new lang_string('privacy_des', 'local_forum_review') . ' ' . $privacylink,
-            1
-        ));
-
-        $settingspage->add(
-            new admin_setting_configtext(
-                'local_forum_review/name',
-                new lang_string('name', 'local_forum_review'),
-                new lang_string('name_des', 'local_forum_review'),
-                null,
-                PARAM_TEXT
-            )
+        $settingspage->add(new admin_setting_configtext(
+            'local_forum_review/name',
+            new lang_string('name', 'local_forum_review'),
+            new lang_string('name_des', 'local_forum_review'),
+            null,
+            PARAM_TEXT,
+            null,
+            [
+                'pattern' => '/^\w([\w\.%+-]*@[\w.-]+\.[a-zA-Z]{2,}$)/',
+                'required' => true
+            ]
+        )
         );
 
-        $settingspage->add(
-            new admin_setting_configtext('local_forum_review/email',
+        $settingspage->add(new admin_setting_configtext(
+            'local_forum_review/email',
             new lang_string('email', 'local_forum_review'),
             new lang_string('email_des', 'local_forum_review'),
             null,
-            PARAM_TEXT)
-        );
-
-        $settingspage->add(
-            new admin_setting_configtext('local_forum_review/apikey',
-            new lang_string('apikey', 'local_forum_review'),
-            new lang_string('apikey_des', 'local_forum_review'),
-            '1234567890',
-            PARAM_TEXT,
+            PARAM_EMAIL,
             null,
-            ['class' => 'disabled'],
+            [
+                'pattern' => '/^\w([\w\.%+-]*@[\w.-]+\.[a-zA-Z]{2,}$)/',
+                'required' => true
+            ],
             new lang_string('placeholder_text', 'local_forum_review')
             )
         );
 
-        $settingspage->add(
-            new admin_setting_configtext('local_forum_review/url',
-            new lang_string('url', 'local_forum_review'),
-            new lang_string('url_des', 'local_forum_review'),
-            new moodle_url('/'),
-            PARAM_TEXT,
-            null,
-            null,
-            new moodle_url('/')
-            )
+        $privacyurl = new moodle_url('https://lab.eurecatacademy.org/sample-page');
+        $privacylink = \html_writer::link($privacyurl, get_string('privacy_policy', 'local_forum_review'));
+
+        $privacycheckbox = new admin_setting_configcheckbox(
+            'local_forum_review/privacy',
+            new lang_string('privacy', 'local_forum_review'),
+            new lang_string('privacy_des', 'local_forum_review') . ' ' . $privacylink,
+            1
         );
 
-        $time = time();
-        $settingspage->add(
-            new admin_setting_configtext('local_forum_review/time',
-            new lang_string('time', 'local_forum_review'),
-            new lang_string('time_des', 'local_forum_review'),
-            $time,
-            PARAM_TEXT,
-            null,
-            null,
-            $time
-            )
-        );
+        $settingspage->add($privacycheckbox);
+
+        if (!$privacycheckbox->get_setting()) {
+            // Show error on settings page.
+            $PAGE->navbar->add(get_string('manage', 'local_forum_review'));
+        }
+        save_settings();
 
 
     }
 
-
     $ADMIN->add('localplugins', $settingspage);
+
 }
 

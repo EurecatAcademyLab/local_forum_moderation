@@ -31,6 +31,8 @@ require_once($CFG->dirroot. '/local/forum_review/updatedb.php');
 require_once($CFG->dirroot. '/local/forum_review/headerforms.php');
 require_once($CFG->dirroot. '/local/forum_review/classes/form/localpremiumform.php');
 require_once($CFG->dirroot. '/local/forum_review/classes/form/about.php');
+require_once($CFG->dirroot. '/local/forum_review/classes/form/noactive.php');
+require_once($CFG->dirroot. '/local/forum_review/classes/setting/query.php');
 
 global $CFG, $OUTPUT, $USER, $SITE, $PAGE;
 
@@ -43,7 +45,9 @@ $PAGE->requires->js(new \moodle_url($urldt), true);
 $PAGE->requires->css(new \moodle_url($urlbase.'/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/r-2.4.0/datatables.min.css'));
 $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js'), true);
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
+
 $PAGE->requires->js(new moodle_url('/local/forum_review/amd/table.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_review/amd/build.js'));
 
 $PAGE->requires->css('/local/forum_review/styles/main.css');
 
@@ -100,12 +104,20 @@ updatepostfr();
 $dform = new select_course();
 $premium = new premium_form();
 $about = new about_form();
+$noactive = new noactive_form();
+
+$precheck = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'privacy'));
+
+$activate = false;
+// $activate = check_validation_time();
 
 echo $OUTPUT->header();
 
-if ($allowview) {
+$output = "";
 
-    $output = "";
+if (!$precheck || $precheck->value == 0) {
+    redirect (new moodle_url('/admin/settings.php?section=managelocalforumreview'));
+} else if ($allowview && $activate) {
 
     $courseselected = null;
     $alertselected = 0;
@@ -211,8 +223,12 @@ if ($allowview) {
 
     $output .= html_writer::end_tag('div');
 
-    echo $output;
+} else {
+    $output .= html_writer::start_tag('div');
+        $output .= $noactive->definition();
+    $output .= html_writer::end_tag('div');
 }
+echo $output;
 
 echo $OUTPUT->footer();
 

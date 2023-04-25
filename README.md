@@ -1,56 +1,26 @@
-# Forum Moderation #
+# forum_review #
 
-Modul:  Forum moderation 
+# Describe the plugin.
 
-Keywords : anti-bulling / anti-harassment / automated forum checker/ relevant to schools Hate detection forums / Hatecheck / Bullingcheck. 
- 
-## Describing the plugin ## 
+The Multilanguage Plugin is designed to assist forum moderators in identifying potentially inappropriate or harmful content and preventing its misuse by automating certain decisions.
 
-The multilanguage plugin is designed to assist forum moderators in identifying potentially inappropriate or harmful content and preventing misuse by automating certain decisions. 
+The module offers highly accurate automated moderation of forums and can quarantine the most problematic messages until they are reviewed by a moderator. The plugin also provides a variety of rules and actions to simplify the moderation process.
 
-The module offers highly accurate automated moderation of forums, and can quarantine the most problematic messages until they are reviewed by a moderator. The plugin also provides a variety of rules and actions to simplify the moderation process. 
 
- 
-## More details ##
-When a user posts a message in any forum, the plugin will read the content, save the result and depending on the detected level will perform one of the following actions: 
+# More details.
 
-If the detected level is 1 - "Warning", it will consider that the content should be reviewed by a subjective authority. Therefore it will show the local plugin for a review. 
+When a user posts a message in any forum, the plugin reads the content, saves the result, and performs one of the following actions based on the detected level:
 
-If the detected level is 2 - "Danger", it will consider that this content should not be on the platform and will therefore be quarantined. This quarantine consists of removing the message until a reviewer determines if a final removal is necessary or if, for context, the detected message can be determined as an exception. 
+If the detected level is 1 - "Warning," the content should be reviewed by a subjective authority. Therefore, it will show the local plugin for a review.
 
-Messages determined to be "Danger" will be prevented from accessing the message and will be marked as unavailable. 
+If the detected level is 2 - "Danger," the content should not be on the platform, and it will be quarantined. This quarantine involves removing the message until a reviewer determines if a final removal is necessary, or if, for context, the detected message can be determined as an exception.
 
-It will be necessary for the authorized user to certify these messages and give approval for each one, having the possibility to accept or reject the module's suggestion. As the messages depend on their context, the reviewer has the possibility to view the message within the discussion to decide if it is appropriate. 
+Messages determined to be "Danger" will be prevented from accessing the message and marked as unavailable. The authorized user must certify these messages and give approval for each one, with the possibility to accept or reject the module's suggestion. As the messages depend on their context, the reviewer has the possibility to view the message within the discussion to decide if it is appropriate.
 
-The module offers important information to forum moderators. This includes the user who posted the message, the course it was posted in, the reasons why the message has been quarantined, a link to the discussion for context, and a suggestion on how to proceed. For example, if the message is deemed "Danger" level, the suggestion might be to delete it, while if it is "Warning" level, the suggestion might be to review it. 
+The module offers important information to forum moderators, including the user who posted the message, the course in which it was posted, the reasons why the message has been quarantined, a link to the discussion for context, and a suggestion on how to proceed. For example, if the message is deemed "Danger" level, the suggestion might be to delete it, while if it is "Warning" level, the suggestion might be to review it.
 
-The plugin provides customization controls for tailoring its functionality,  and can be configured to operate at varying levels of accuracy based on the selected service level agreement. 
+The plugin provides customization controls for tailoring its functionality and can be configured to operate at varying levels of accuracy based on the selected service level agreement.
 
-## About Us ## 
-
-Eurecat Academy is the training department of Eurecat Technology Centre (www.eurecat.org). As a full-fledged training, content creation, and education consultancy services provider, we specialize in developing effective e-learning solutions through the “Lab”, our software division. 
-
-At Eurecat Academy Lab, we bring together a multidisciplinary team of experts with a passion for improving people's abilities. Our team's expertise ranges from instructional design to technical development to offer solutions that optimize our clients' training activities. 
-
-Our purpose is to offer solutions with the ability to generate a positive impact on individuals and entities, providing them with effective tools to optimize their training activities. We aspire for everyone to unleash their maximum potential and contribute to personal and professional progress, for their own well-being and their contribution to social development. 
-
-## Specific information about the plugin's saved data. ##
-
-Although this plugin is a free version, our company will store some data for the proper functioning and maintenance of the plugin. These data will be user  name, email and url of the platform where the plugin will be deployed.  
-
-The plugin's stay has a temporary duration, and by accepting the privacy settings you will be giving the opportunity to be sent information about the duration of the plugin, as well as other products of the company.  In no case the information will be destined to third parties or purposes that are not informative about this plugin or other plugins of the company.  
- 
-If you have any questions, doubts or suggestions please do not hesitate to contact us.  
-
-## Regarding the AI approach ##
-
-This tool uses AI models to detect hate speech, such as language models like Moderation by OpenAI (https://platform.openai.com/docs/models/moderation) and open ones. It is designed to be as ethical and responsible as possible. The tools using these models are developed with a strong emphasis on privacy and data protection, and are designed to ensure that user data is handled with the utmost care and respect.
-
-The development team of the plugin is committed to continuously improving the ethical standards of their product. To achieve this, they are actively working on applying new ethical toolboxes and guidelines to their development process. These toolboxes and guidelines are designed to help the team identify and address ethical concerns and considerations throughout the entire product lifecycle, from conception to implementation.
-
-The AI models selected to be used are typically trained on large datasets that have been carefully curated to ensure that they are representative and diverse. This means that the models are not biased towards any particular group or ideology, and that they are capable of identifying hate speech in all its forms, regardless of who is speaking or what they are saying. More information can be found here: https://platform.openai.com/docs/guides/moderation/overview.
-
-It's important to note that tools with enhanced functionality provided by AI models are never perfect and should be used in conjunction with human moderation and oversight. This helps to ensure that any potential errors or biases are caught and corrected before they have a chance to cause harm. The overall design and user interface of this tool is intended to assist human forum moderators, with final decisions left to human judgment.
 
 ## Installing via uploaded ZIP file ##
 
@@ -77,7 +47,7 @@ to complete the installation from the command line.
 
 ## License ##
 
-2022 Aina Palacios & JuanCarlo Castillo & Eurecat.dev
+2022 Aina Palacios & Eurecat.dev
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

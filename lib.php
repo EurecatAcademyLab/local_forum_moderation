@@ -217,7 +217,8 @@ function get_count_userpost($userid) {
     global $DB;
     $sql = "SELECT MAX(count_user) AS max_count
     FROM {local_forum_review}
-    WHERE user_id = :userid";
+    WHERE user_id = :userid
+    AND advice != 'no_action'";
     $count = $DB->get_field_sql($sql, ['userid' => $userid]);
     $count = $count ? (intval($count) + 1) : 1;
     return $count;
@@ -228,7 +229,102 @@ function get_count_userpost($userid) {
  * @return String $actualurl.
  */
 function get_actual_url() {
-    global $PAGE;
-    return $PAGE->url;
+
+    $urlactual = qualified_me();
+    $urlparsed = parse_url($urlactual);
+
+    // Url base.
+    $urlbase = $urlparsed['scheme'] . "://" . $urlparsed['host'];
+
+    if (isset($urlparsed['port'])) {
+        $urlbase .= ":" . $urlparsed['port'];
+    }
+
+    $urlbase .= "/";
+    return $urlbase;
 }
 
+/**
+ * Saves the configuration settings.
+ * Only creates configuration values if they do not already exist in the database.
+ * According to the privacy policy accepted in the settings of this plugin,
+ * the user gives permission to save the URL and the activation time.
+ * @return bool Returns true when save a good valñues on DB.
+ */
+function save_settings() {
+    global $DB, $CFG;
+
+    // Check if the privacity setting is enabled.
+    $existingconfigprivacity = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'privacity'));
+
+        $configs = array(
+            array('name' => 'time', 'value' => time()),
+            array('name' => 'url', 'value' => strval(get_actual_url())),
+            array('name' => 'apikey', 'value' => 1234567890),
+        );
+
+        foreach ($configs as $config) {
+            // Check if the configuration item already exists.
+            $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => $config['name']));
+
+            // Insert the configuration item if it does not exist.
+            if (!$existingconfig) {
+                $forumconfig = new stdClass();
+                $forumconfig->plugin = 'local_forum_review';
+                $forumconfig->name = $config['name'];
+                $forumconfig->value = $config['value'];
+
+                $DB->insert_record('config_plugins', $forumconfig);
+            }
+        }
+
+        return true;
+}
+
+
+/**
+ * Check if validation time has passed.
+ *
+ * This function retrieves the value of the 'time' and 'url' configuration
+ * records from the 'config_plugins' table for the 'local_forum_review' plugin,
+ * and compares the value of 'time' with the current time to determine if
+ * validation time has passed (30 days).
+ *
+ * @global object $DB Moodle database object.
+ * @return bool Returns false if validation time has passed, otherwise true.
+ */
+function check_validation_time() {
+    global $DB;
+
+    $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'time'));
+    $existingconfigurl = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'url'));
+
+    if ($existingconfig && $existingconfigurl) {
+        $value = $existingconfig->value;
+        $thirtydays = 30 * 24 * 60 * 60;
+        $current = time();
+
+        if ($value + $thirtydays <= $current) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
+}
+
+/**
+ * This function changes the staus of the plugin on the table config plugins on the DB.
+ * @global object $DB Moodle database object.
+ * @return Void. 
+ */
+function update_status(){
+    if (check_validation_time() == false) {
+        global $DB;
+        $existingconfig = $DB->get_field('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'status'));
+        if ($existingconfig) {
+            $DB->set_field('config_plugins', 'value', '0', array('plugin' => 'local_forum_review', 'name' => 'status'));
+        }
+    }
+}
