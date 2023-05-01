@@ -154,9 +154,7 @@ function table($courseselected, $checked, $alertselected) {
 
             // Forum.
             $name = $DB->get_field('forum', 'name', ['id' => $m->forum_id]);
-            $sql = "SELECT cm.id FROM {forum} f JOIN {course_modules} cm ON cm.instance = f.id WHERE f.id = :id";
-            $i = $DB->get_field_sql($sql, array('id' => $m->forum_id));
-            $foru = $route.'/mod/forum/view.php?id='.$i;
+            $foru = $route.'/mod/forum/view.php?id='.$m->forum_id;
             $forum = '<a href="'.$foru.'" class='.$cl.' target="_blank"><strong>'.$name.'</strong></a>';
 
             // Recommendation.

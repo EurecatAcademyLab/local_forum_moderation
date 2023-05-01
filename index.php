@@ -32,7 +32,6 @@ require_once($CFG->dirroot. '/local/forum_review/headerforms.php');
 require_once($CFG->dirroot. '/local/forum_review/classes/form/localpremiumform.php');
 require_once($CFG->dirroot. '/local/forum_review/classes/form/about.php');
 require_once($CFG->dirroot. '/local/forum_review/classes/form/noactive.php');
-require_once($CFG->dirroot. '/local/forum_review/classes/setting/query.php');
 
 global $CFG, $OUTPUT, $USER, $SITE, $PAGE;
 
@@ -47,7 +46,7 @@ $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
 
 $PAGE->requires->js(new moodle_url('/local/forum_review/amd/table.js'));
-$PAGE->requires->js(new moodle_url('/local/forum_review/amd/build.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_review/amd/woocomerce.js'));
 
 $PAGE->requires->css('/local/forum_review/styles/main.css');
 
@@ -97,7 +96,6 @@ $renderer = $PAGE->get_renderer('core_enrol');
 
 // Add capability in your plugin, to delete any post.
 $allowview = has_capability('local/forum_review:viewmessages', context_system::instance());
-$allowpremium = has_capability('local/forum_review:getpremium', context_system::instance());
 
 updatepostfr();
 
@@ -108,16 +106,20 @@ $noactive = new noactive_form();
 
 $precheck = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'privacy'));
 
-$activate = false;
-// $activate = check_validation_time();
+$activate = check_validation_time();
+call_woocomerce_status();
+$status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'status'));
 
 echo $OUTPUT->header();
 
 $output = "";
+$output .= html_writer::start_tag('div', ['id' => 'statusforum', 'class' => 'mb-3']);
+$output .= html_writer::end_tag('div');
 
 if (!$precheck || $precheck->value == 0) {
     redirect (new moodle_url('/admin/settings.php?section=managelocalforumreview'));
-} else if ($allowview && $activate) {
+
+} else if ($status->value == 1) {
 
     $courseselected = null;
     $alertselected = 0;
@@ -133,7 +135,6 @@ if (!$precheck || $precheck->value == 0) {
 
     $output .= html_header($courseselected);
 
-    $output .= html_writer::start_tag('div', ['class' => 'pt-2']);
     $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);
 
         $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);

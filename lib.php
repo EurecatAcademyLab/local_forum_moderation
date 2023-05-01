@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Lib file.
+ * Plugin version and other meta-data are defined here.
  *
  * @package     local_forum_review
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
@@ -27,6 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
 require_login();
+
+$page = new moodle_page();
+$page->requires->js('/local/forum_review/amd/woocomerce.js');
+
 /**
  * Insert a link to index.php on the site front page navigation menu.
  *
@@ -36,7 +40,7 @@ function local_forum_review_extend_navigation_frontpage(navigation_node $frontpa
     if (isloggedin() && !isguestuser()) {
         $frontpage->add(
             get_string('pluginname', 'local_forum_review'),
-            new moodle_url('/local/forum_review/index.php'),
+            new moodle_url('/local/forum_review/index.php')
         );
     }
 }
@@ -51,7 +55,7 @@ function local_forum_review_extend_navigation(global_navigation $root) {
     if (isloggedin() && !isguestuser()) {
         $node = navigation_node::create(
             get_string('pluginname', 'local_forum_review'),
-            new moodle_url('/local/forum_review/index.php'),
+            new moodle_url('/local/forum_review/index.php')
         );
 
         $node->showinflatnavigation = true;
@@ -260,7 +264,6 @@ function save_settings() {
         $configs = array(
             array('name' => 'time', 'value' => time()),
             array('name' => 'url', 'value' => strval(get_actual_url())),
-            array('name' => 'apikey', 'value' => 1234567890),
         );
 
         foreach ($configs as $config) {
@@ -281,7 +284,6 @@ function save_settings() {
         return true;
 }
 
-
 /**
  * Check if validation time has passed.
  *
@@ -290,7 +292,6 @@ function save_settings() {
  * and compares the value of 'time' with the current time to determine if
  * validation time has passed (30 days).
  *
- * @global object $DB Moodle database object.
  * @return bool Returns false if validation time has passed, otherwise true.
  */
 function check_validation_time() {
@@ -316,10 +317,9 @@ function check_validation_time() {
 
 /**
  * This function changes the staus of the plugin on the table config plugins on the DB.
- * @global object $DB Moodle database object.
- * @return Void. 
+ * @return Void.
  */
-function update_status(){
+function update_status() {
     if (check_validation_time() == false) {
         global $DB;
         $existingconfig = $DB->get_field('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'status'));
@@ -327,4 +327,36 @@ function update_status(){
             $DB->set_field('config_plugins', 'value', '0', array('plugin' => 'local_forum_review', 'name' => 'status'));
         }
     }
+}
+
+/**
+ * This function get data from config settings and connect with js function.
+ * @return Void.
+ */
+function call_woocomerce() {
+
+    $apikey = get_config('local_forum_review', 'apikey');
+    $productid = get_config('local_forum_review', 'productid');
+    $email = get_config('local_forum_review', 'email');
+
+    $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
+    global $PAGE;
+    $PAGE->requires->js('/local/forum_review/amd/woocomerce.js');
+    $PAGE->requires->js_init_call('woocommerce_api_active', $data);
+}
+
+/**
+ * This function get data from config settings and confirm the status.
+ * @return Void.
+ */
+function call_woocomerce_status() {
+
+    $apikey = get_config('local_forum_review', 'apikey');
+    $productid = get_config('local_forum_review', 'productid');
+    $email = get_config('local_forum_review', 'email');
+
+    $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
+    global $PAGE;
+    $PAGE->requires->js('/local/forum_review/amd/woocomerce.js');
+    $PAGE->requires->js_init_call('woocommerce_api_status', $data);
 }

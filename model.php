@@ -38,7 +38,7 @@ require_login();
 function predict($text) {
     $text = clean($text);
     $inputapi[1] = $text;
-    $makecall = callapifr('POST', 'http://82.223.100.56/hate', json_encode($inputapi, true));
+    $makecall = callapifr('POST', 'http://d75rw7c769oxjm63lab.online/hate', json_encode($inputapi, true));
     $response = json_decode($makecall, true);
     return $response[1];
 }

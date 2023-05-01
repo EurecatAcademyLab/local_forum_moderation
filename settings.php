@@ -48,7 +48,7 @@ if (isset($hassiteconfig) && $hassiteconfig) {
             1
         ));
 
-        $settingspage->add(new admin_setting_configtext(
+        $namesetting = new admin_setting_configtext(
             'local_forum_review/name',
             new lang_string('name', 'local_forum_review'),
             new lang_string('name_des', 'local_forum_review'),
@@ -59,10 +59,15 @@ if (isset($hassiteconfig) && $hassiteconfig) {
                 'pattern' => '/^\w([\w\.%+-]*@[\w.-]+\.[a-zA-Z]{2,}$)/',
                 'required' => true
             ]
-        )
         );
 
-        $settingspage->add(new admin_setting_configtext(
+        if (!$namesetting->get_setting()) {
+            // Show error on settings page.
+            $PAGE->navbar->add(get_string('manage', 'local_forum_review'));
+        }
+        $settingspage->add($namesetting);
+
+        $emailsettings = new admin_setting_configtext(
             'local_forum_review/email',
             new lang_string('email', 'local_forum_review'),
             new lang_string('email_des', 'local_forum_review'),
@@ -74,8 +79,37 @@ if (isset($hassiteconfig) && $hassiteconfig) {
                 'required' => true
             ],
             new lang_string('placeholder_text', 'local_forum_review')
-            )
         );
+
+        if (!$emailsettings->get_setting()) {
+            // Show error on settings page.
+            $PAGE->navbar->add(get_string('manage', 'local_forum_review'));
+        }
+        $settingspage->add($emailsettings);
+
+        $apikeysetting = new admin_setting_configtext(
+            'local_forum_review/apikey',
+            new lang_string('apikey', 'local_forum_review'),
+            new lang_string('apikey_des', 'local_forum_review'),
+            'd564dde308ff319571349c617a9185dec25893d1',
+            PARAM_TEXT,
+            50,
+            'maxlength="50"readonly'
+        );
+
+        $apikeysetting->set_updatedcallback(call_woocomerce());
+
+        $settingspage->add($apikeysetting);
+
+        $productidsetting = new admin_setting_configtext(
+            'local_forum_review/productid',
+            new lang_string('productid', 'local_forum_review'),
+            new lang_string('productid_des', 'local_forum_review'),
+            '39',
+            PARAM_INT);
+
+        $settingspage->add($productidsetting);
+
 
         $privacyurl = new moodle_url('https://lab.eurecatacademy.org/sample-page');
         $privacylink = \html_writer::link($privacyurl, get_string('privacy_policy', 'local_forum_review'));
@@ -87,14 +121,14 @@ if (isset($hassiteconfig) && $hassiteconfig) {
             1
         );
 
-        $settingspage->add($privacycheckbox);
-
         if (!$privacycheckbox->get_setting()) {
             // Show error on settings page.
             $PAGE->navbar->add(get_string('manage', 'local_forum_review'));
         }
-        save_settings();
+        $settingspage->add($privacycheckbox);
 
+
+        save_settings();
 
     }
 

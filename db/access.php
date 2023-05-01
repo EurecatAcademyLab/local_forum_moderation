@@ -41,14 +41,6 @@ $capabilities = array(
         'archetypes' => array(
             'user' => CAP_ALLOW,
         )
-    ),
-    'local/forum_review:getpremium' => array(
-        'riskbitmask' => RISK_DATALOSS,
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-        )
-    ),
+    )
 );
 
