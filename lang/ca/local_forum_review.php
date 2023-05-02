@@ -208,4 +208,4 @@ $string['aboutus2'] = "Eurecat Academy col·labora amb organitzacions laborals i
 $string['aboutus3'] = "El nostre propòsit general és oferir solucions amb capacitat per a generar un impacte positiu en persones i entitats, proporcionant-los eines eficaces per a optimitzar les seves activitats formatives. Aspirem al fet que cada persona alliberi el seu màxim potencial i contribueixi al seu progrés personal i professional, per al seu propi benestar i la seva contribució al desenvolupament social.";
 
 // No active.
-$string['noactive'] = 'Gràcies per haver-nos triats i usar els nostres productes. Vostè ha superat el temps de la versió gratuïta, si desitja aconseguir el producte en la seva versió premium poseu-vos en contacte amb nosaltres';
+$string['noactive'] = 'Gràcies per haver-nos triats i usar els nostres productes. Vostè ha superat el temps de la versió gratuïta, si desitja aconseguir el producte en la seva versió premium poseu-vos en contacte amb nosaltres.';
