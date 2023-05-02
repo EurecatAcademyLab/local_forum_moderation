@@ -149,6 +149,8 @@ $string['time'] = 'Temps';
 $string['time_des'] = 'Temps';
 $string['url'] = 'Url';
 $string['url_des'] = 'Url - Actual';
+$string['productid'] = 'Identificador de producte';
+$string['productid_des'] = 'El seu producte actual';
 $string['privacy'] = 'Accepto termes i condicions';
 $string['privacy_des'] = 'Acceptar condicions';
 $string['privacy_policy'] = 'Política de privacitat';
@@ -156,6 +158,7 @@ $string['email_cannot_be_empty'] = 'El camp Email no pot estar buit';
 $string['activate'] = 'Activar';
 $string['error_empty_field'] = 'Aquest camp no pot estar buit';
 $string['placeholder_text'] = '123456789';
+$string['title'] = 'Una vegada instal·lat el plugin, trigarà uns minuts a llegir la base de dades i comprovar tots els missatges del fòrum disponibles en la plataforma';
 
 // Description.
 $string['Describ'] = "Sobre aquest plugin";
