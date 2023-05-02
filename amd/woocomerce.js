@@ -49,6 +49,7 @@ async function woocommerce_api_active(yui, apikey, product_id, email) {
             .join('&');
 
         const call_url = url +'&'+ queryString
+        console.log(call_url);
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', call_url);
@@ -103,6 +104,7 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
             .join('&');
 
         const call_url = url +'&'+ queryString
+        console.log(call_url);
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', call_url);
