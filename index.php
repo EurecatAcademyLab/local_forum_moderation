@@ -119,7 +119,7 @@ $output .= html_writer::end_tag('div');
 if (!$precheck || $precheck->value == 0) {
     redirect (new moodle_url('/admin/settings.php?section=managelocalforumreview'));
 
-} else if ($status->value == 1) {
+} else if (!$status || $status->value == 1) {
 
     $courseselected = null;
     $alertselected = 0;
