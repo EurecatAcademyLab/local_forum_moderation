@@ -35,8 +35,8 @@ async function woocommerce_api_active(yui, apikey, product_id, email) {
         var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=activate';
         
 
-        const url = new URL(window.location.href);
-        const host = url.host;
+        const urlactual = new URL(window.location.href);
+        const host = urlactual.host;
         console.log(host);
         const hash = await hashString(host);
 
@@ -91,8 +91,8 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
 
         var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=status';
         
-        const url = new URL(window.location.href);
-        const host = url.host;
+        const urlactual = new URL(window.location.href);
+        const host = urlactual.host;
         console.log(host);
         const hash = await hashString(host);
 
