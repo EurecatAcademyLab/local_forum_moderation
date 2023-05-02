@@ -34,8 +34,11 @@ async function woocommerce_api_active(yui, apikey, product_id, email) {
     try {
         var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=activate';
         
-        var instance_string = window.location.href;
-        const hash = await hashString(instance_string);
+
+        const url = new URL(window.location.href);
+        const host = url.host;
+        console.log(host);
+        const hash = await hashString(host);
 
         var params = {
             instance: hash,
@@ -87,9 +90,11 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
     try {
 
         var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=status';
-
-        var instance_string = window.location.href;
-        const hash = await hashString(instance_string);
+        
+        const url = new URL(window.location.href);
+        const host = url.host;
+        console.log(host);
+        const hash = await hashString(host);
 
         var params = {
             instance: hash,
