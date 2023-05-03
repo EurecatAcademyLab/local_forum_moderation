@@ -27,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = "Moderador de foros";
-$string['pluginnameextra'] = '(Versión gratuita)';
+$string['pluginnameextra'] = '(Versión gratuita / Beta)';
 $string['developed'] = 'Desarrollado por :';
 $string['eurecat'] = 'Eurecat Academy';
 $string['eurecatorg'] = 'Eurecat.org';
@@ -149,6 +149,8 @@ $string['time'] = 'Tiempo';
 $string['time_des'] = 'tiempo';
 $string['url'] = 'Url';
 $string['url_des'] = 'Url - Actual';
+$string['productid'] = 'Identificador de producto';
+$string['productid_des'] = 'Su producto actual';
 $string['privacy'] = 'Acepto términos y condiciones';
 $string['privacy_des'] = 'Aceptar condiciones';
 $string['privacy_policy'] = 'Política de privacidad';
@@ -156,6 +158,7 @@ $string['email_cannot_be_empty'] = 'El campo Email no puede estar vacío';
 $string['activate'] = 'Activar';
 $string['error_empty_field'] = 'Este campo no puede estar vacío';
 $string['placeholder_text'] = '123456789';
+$string['title'] = 'Una vez instalado el plugin, tardará unos minutos en leer la base de datos y comprobar todos los mensajes del foro disponibles en la plataforma';
 
 // Description.
 $string['Describ'] = "Sobre este plugin";

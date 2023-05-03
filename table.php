@@ -29,6 +29,7 @@ require_once(__DIR__.'/../../config.php');
 require_once($CFG->dirroot. '/local/forum_review/lib.php');
 require_once($CFG->dirroot. '/local/forum_review/delete.php');
 require_once($CFG->dirroot. '/local/forum_review/accept.php');
+
 require_login();
 
 /**
@@ -166,10 +167,13 @@ function table($courseselected, $checked, $alertselected) {
             $accept = get_string('accepted', 'local_forum_review');
             if ($checked == 1) {
                 if ($m->reject) {
-                    $cl1 = "btn rounded-lg btn-outline-danger disabled";
-                    $delete = '<p class='.$cl1.' aria-disabled="true" >'.get_string('deleted', 'local_forum_review').' </p>';
+                    $cl1 = "btn rounded-lg btn-outline-danger disabled d-flex align-items-center justify-content-center";
+                    $delete = '<p class='.$cl1. ' aria-disabled="true" >'.get_string('deleted', 'local_forum_review').' </p>';
                 } else {
-                    $delete = '<p class="btn rounded-lg btn-outline-success disabled" aria-disabled="true"> '.$accept.' </p>';
+                    $delete = '<p class="btn rounded-lg btn-outline-success disabled d-flex '
+                    . 'align-items-center justify-content-center" aria-disabled="true"> '
+                    . $accept .
+                    ' </p>';
                 }
 
             } else {
@@ -177,26 +181,18 @@ function table($courseselected, $checked, $alertselected) {
                 $dform = new delete_post();
                 if ($fromform = $dform->get_data()) {
                     require_sesskey();
-                    delete_modify_post($fromform->id);
-                    $dform->reset();
+                    banner_delete();
+                    $deletebutton = $dform->render();
                 } else {
-                    $param = new stdClass();
-                    $param->id = $id;
-                    $dform->set_data($param);
                     $deletebutton = $dform->render();
                 }
 
                 $aform = new accept_post();
                 if ($fromforma = $aform->get_data()) {
                     require_sesskey();
-                    reject_modify_post($fromforma->id, $fromforma->post_id);
-                    $aform->reset();
-
+                    banner_accept();
+                    $acceptbutton = $aform->render();
                 } else {
-                    $param = new stdClass();
-                    $param->id = $id;
-                    $param->post_id = $postid;
-                    $aform->set_data($param);
                     $acceptbutton = $aform->render();
                 }
 

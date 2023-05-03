@@ -25,6 +25,7 @@
 
 
 require_once(__DIR__.'/../../config.php');
+require_login();
 
 $page = new moodle_page();
 $page->requires->js('/local/forum_review/amd/woocomerce.js');

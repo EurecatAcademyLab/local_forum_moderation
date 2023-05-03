@@ -27,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Forum Moderation';
-$string['pluginnameextra'] = '(Free version)';
+$string['pluginnameextra'] = '(Free version / Beta)';
 $string['developed'] = 'Developed by:';
 $string['eurecat'] = 'Eurecat Academy';
 $string['eurecatorg'] = 'Eurecat.org';
@@ -158,6 +158,7 @@ $string['email_cannot_be_empty'] = 'The Email field cannot be empty';
 $string['activate'] = 'Activate';
 $string['error_empty_field'] = 'This field can not be empty';
 $string['placeholder_text'] = 'name@example.com';
+$string['title'] = 'Once the plugin is installed, it will take some minutes to read the DB and check all the forum messages available on the platform';
 
 // Description.
 $string['Describ'] = "About this plugin";

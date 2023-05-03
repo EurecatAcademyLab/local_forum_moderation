@@ -33,11 +33,9 @@
 async function woocommerce_api_active(yui, apikey, product_id, email) {
     try {
         var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=activate';
-        
 
         const urlactual = new URL(window.location.href);
         const host = urlactual.host;
-        console.log(host);
         const hash = await hashString(host);
 
         var params = {
@@ -52,7 +50,6 @@ async function woocommerce_api_active(yui, apikey, product_id, email) {
             .join('&');
 
         const call_url = url +'&'+ queryString
-        console.log(call_url);
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', call_url);
@@ -62,7 +59,7 @@ async function woocommerce_api_active(yui, apikey, product_id, email) {
             if (xhr.status === 200) {
                 var data = xhr.response;
                 // handle data
-                console.log(data);
+                console.log(data.sucess);
             } else {
                 // handle error
                 console.error('Error getting data from API endpoint');
@@ -109,7 +106,6 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
             .join('&');
 
         const call_url = url +'&'+ queryString
-        console.log(call_url);
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', call_url);
@@ -124,12 +120,11 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
                 if (data.status_check == 'active') {
                     var active = 1;
                     setStatus(active, oldUrl);
-                    agregarTextoAlDiv('Active User');
+                    // agregarTextoAlDiv('Active User');
                 } else {
                     var active = 0;
                     setStatus(active, oldUrl);
                 }
-                console.log(data)
             }  else {
                 // handle error
                 console.error('Error getting data from API endpoint');
