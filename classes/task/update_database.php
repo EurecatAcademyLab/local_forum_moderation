@@ -16,18 +16,18 @@
 
 /**
  * Sequency task.
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_forum_review\task;
+namespace local_forum_moderation\task;
 
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
-require_once($CFG->dirroot . '/local/forum_review/updatedb.php');
+require_once($CFG->dirroot . '/local/forum_moderation/updatedb.php');
 
 /**
  * An example of a scheduled task.
@@ -40,7 +40,7 @@ class update_database extends \core\task\scheduled_task {
      * @return string
      */
     public function get_name() {
-        return get_string('taskUpdate', 'local_forum_review');
+        return get_string('taskUpdate', 'local_forum_moderation');
     }
 
     /**

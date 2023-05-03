@@ -17,7 +17,7 @@
 /**
  * Plugin strings are defined here - Spanish.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @category    string
  * @author      2022 Aina Palacios
  * @copyright   2022 Aina Palacios & Eurecat.dev
@@ -121,7 +121,7 @@ $string['privacy:metadata:checked'] = 'Comprobado';
 $string['privacy:metadata:hatedetected'] = 'Odio';
 $string['privacy:metadata:lastmodified'] = 'Last modified';
 $string['privacy:metadata:checkedlastmodified'] = 'Última modificación';
-$string['privacy:metadata:localforumreview'] = 'Tabla para guardar usuarios foro detectado';
+$string['privacy:metadata:localforummoderation'] = 'Tabla para guardar usuarios foro detectado';
 
 // Premium.
 $string['premium'] = '* Actualizar a la versión Premium -  Análisis de Sentimiento';

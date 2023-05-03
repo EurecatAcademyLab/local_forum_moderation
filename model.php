@@ -17,7 +17,7 @@
 /**
  * Connect with external file.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_review/lib.php');
+require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
 
 require_login();
 
@@ -84,7 +84,7 @@ function callapifr($method, $url, $data) {
     // OPTIONS.
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-      'APIKEY: '.get_config('local_forum_review', 'apikey'),
+      'APIKEY: '.get_config('local_forum_moderation', 'apikey'),
       'Content-Type: application/json',
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

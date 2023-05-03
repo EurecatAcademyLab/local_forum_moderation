@@ -14,16 +14,16 @@
 /**
  * Css file.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-#fitem_id_deletebutton_forum_review.femptylabel > .col-md-3 {
+#fitem_id_deletebutton_forum_moderation.femptylabel > .col-md-3 {
   display: none !important; }
 
-#fitem_id_acceptbutton_forum_review.femptylabel > .col-md-3 {
+#fitem_id_acceptbutton_forum_moderation.femptylabel > .col-md-3 {
   display: none !important; }
 
 .div-three-col {

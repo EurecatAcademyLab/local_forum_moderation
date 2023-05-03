@@ -17,7 +17,7 @@
 /**
  * Plugin strings are defined here.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @category    string
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
@@ -121,7 +121,7 @@ $string['privacy:metadata:checked'] = 'Checked';
 $string['privacy:metadata:hatedetected'] = 'Hate';
 $string['privacy:metadata:lastmodified'] = 'Last modified';
 $string['privacy:metadata:checkedlastmodified'] = 'check last modified';
-$string['privacy:metadata:localforumreview'] = 'Table to save users forum detected';
+$string['privacy:metadata:localforummoderation'] = 'Table to save users forum detected';
 
 // Premium.
 $string['premium'] = '* Upgrade to Forum Moderation - Premium';

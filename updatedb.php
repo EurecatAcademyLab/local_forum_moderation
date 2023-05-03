@@ -17,7 +17,7 @@
 /**
  * The cyclic function.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot. '/local/forum_review/model.php');
-require_once($CFG->dirroot. '/local/forum_review/lib.php');
+require_once($CFG->dirroot. '/local/forum_moderation/model.php');
+require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
 
 /**
  * To Update or insert record on forum review table.
@@ -73,11 +73,11 @@ function getpostsfr($lastmodified, $maxnum) {
             $record->hate_detected = implode(",", $prediction['words']);
         }        $record->last_modified = $m->modified;
 
-        if ($DB->record_exists('local_forum_review', ['post_id' => $record->post_id])) {
-            $record->id = $DB->get_field('local_forum_review', 'id', ['post_id' => $record->post_id]);
-            $DB->update_record('local_forum_review', $record);
+        if ($DB->record_exists('local_forum_moderation', ['post_id' => $record->post_id])) {
+            $record->id = $DB->get_field('local_forum_moderation', 'id', ['post_id' => $record->post_id]);
+            $DB->update_record('local_forum_moderation', $record);
         } else {
-            $DB->insert_record('local_forum_review', $record);
+            $DB->insert_record('local_forum_moderation', $record);
         }
 
     }
@@ -100,7 +100,7 @@ function gettimestamp() {
  */
 function updatepostfr() {
     global $DB;
-    $lastmodified = $DB->get_records_sql("SELECT MAX(last_modified) AS lastModified FROM {local_forum_review}");
+    $lastmodified = $DB->get_records_sql("SELECT MAX(last_modified) AS lastModified FROM {local_forum_moderation}");
     if (reset($lastmodified)->lastmodified == null) {
         $lastmodified = 0;
     } else {

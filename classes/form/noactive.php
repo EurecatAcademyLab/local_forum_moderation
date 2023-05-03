@@ -17,7 +17,7 @@
 /**
  * No active - Eurecat dev
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -52,13 +52,13 @@ class noactive_form extends moodleform {
         'class' => 'border mt-5 flex-column rounded pt-4 pb-3 w-100']);
 
         $output .= html_writer::start_tag('div', ['class' => 'd-flex justify-content-center p-3']);
-            $output .= html_writer::tag('h5', get_string('noactive', 'local_forum_review'), ['class' => 'text-white']);
+            $output .= html_writer::tag('h5', get_string('noactive', 'local_forum_moderation'), ['class' => 'text-white']);
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', ['class' => 'd-flex justify-content-center mt-3 mx-5']);
             $options = ['class' => 'hatebtn', 'target' => '_blank'];
             $output .= $OUTPUT->single_button($url,
-                get_string('premiumpage', 'local_forum_review'), 'post', $options);
+                get_string('premiumpage', 'local_forum_moderation'), 'post', $options);
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::end_tag('div');
