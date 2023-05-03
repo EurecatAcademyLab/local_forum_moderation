@@ -41,7 +41,7 @@ if (isset($hassiteconfig) && $hassiteconfig) {
     );
 
     $settingspage = new admin_settingpage(
-        'managelocalforumreview',
+        'managelocalforummoderation',
         new lang_string('manage', 'local_forum_moderation'),
     );
 

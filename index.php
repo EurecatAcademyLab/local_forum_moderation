@@ -24,6 +24,7 @@
  */
 
 require_once(__DIR__.'/../../config.php');
+require_once($CFG->dirroot.'/course/lib.php'); 
 require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
 require_once($CFG->dirroot. '/local/forum_moderation/header.php');
 require_once($CFG->dirroot. '/local/forum_moderation/table.php');
@@ -113,11 +114,9 @@ $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moder
 echo $OUTPUT->header();
 
 $output = "";
-$output .= html_writer::start_tag('div', ['id' => 'statusforum', 'class' => 'mb-3']);
-$output .= html_writer::end_tag('div');
 
 if (!$precheck || $precheck->value == 0) {
-    redirect (new moodle_url('/admin/settings.php?section=managelocalforumreview'));
+    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
 
 } else if (!$status || $status->value == 1) {
 
@@ -134,7 +133,6 @@ if (!$precheck || $precheck->value == 0) {
     }
 
     $output .= html_header($courseselected);
-
     $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);
 
         $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);

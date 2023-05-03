@@ -44,5 +44,3 @@ if ($existingrecord) {
     $DB->insert_record('config_plugins', $record);
 }
 
-echo 'success';
-

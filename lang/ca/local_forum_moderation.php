@@ -121,7 +121,7 @@ $string['privacy:metadata:checked'] = 'Checked';
 $string['privacy:metadata:hatedetected'] = 'Hate';
 $string['privacy:metadata:lastmodified'] = 'Last modified';
 $string['privacy:metadata:checkedlastmodified'] = 'check last modified';
-$string['privacy:metadata:localforumreview'] = 'Table to save users forum detected';
+$string['privacy:metadata:localforummoderation'] = 'Table to save users forum detected';
 
 // Premium.
 $string['premium'] = '* Actualitzar a la versió Premium - Anàlisi de Sentiment ';

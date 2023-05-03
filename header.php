@@ -32,16 +32,18 @@ require_login();
  * @return String html header.
  */
 function html_header($courseselected) {
-    global $CFG;
+    global $CFG, $DB;
 
     $output = "";
 
     if ($courseselected != '0') {
         if (!is_null($courseselected)) {
 
+            $coursename = $DB->get_record('course', array('id' => $courseselected), '*', MUST_EXIST);
+
             $output .= html_writer::start_tag('div', ['class' => 'w-100 text-center']);
             $output .= html_writer::tag('hr', '');
-            $course = get_string('course', 'local_forum_moderation') . get_name_course($courseselected)->name;
+            $course = get_string('course', 'local_forum_moderation') . '  '.$coursename->fullname;
             $output .= html_writer::tag('span', $course, ['class' => 'h1 p-3 center']);
             $output .= html_writer::start_tag('a', ['href' => $CFG->wwwroot.'/course/view.php?id='.$courseselected]);
             $output .= html_writer::tag('i', '', ['class' => 'fa fa-link p-1']);

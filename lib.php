@@ -257,7 +257,8 @@ function save_settings() {
     global $DB, $CFG;
 
     // Check if the privacity setting is enabled.
-    $existingconfigprivacity = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacity'));
+    $existingconfigprivacity = $DB->get_record('config_plugins',
+        array('plugin' => 'local_forum_moderation', 'name' => 'privacity'));
 
         $configs = array(
             array('name' => 'time', 'value' => time()),
@@ -266,7 +267,8 @@ function save_settings() {
 
         foreach ($configs as $config) {
             // Check if the configuration item already exists.
-            $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => $config['name']));
+            $existingconfig = $DB->get_record('config_plugins',
+            array('plugin' => 'local_forum_moderation', 'name' => $config['name']));
 
             // Insert the configuration item if it does not exist.
             if (!$existingconfig) {

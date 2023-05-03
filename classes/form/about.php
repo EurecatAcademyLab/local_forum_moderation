@@ -70,14 +70,16 @@ class about_form extends moodleform {
             $gs = get_string('information', 'local_forum_moderation');
             $urlprivacity = 'https://eurecat.org/en/privacy-policy';
             $privacity = '<a href="'.$urlprivacity.'" target="_blank"><small>'.$gs.'</small></a>';
-            $output .= html_writer::tag('p', get_string('userprivate3', 'local_forum_moderation').' '.$privacity, ['class' => 'mb-3']);
+            $output .= html_writer::tag('p',
+                get_string('userprivate3', 'local_forum_moderation').' '.$privacity, ['class' => 'mb-3']);
 
             $output .= html_writer::tag('h5', get_string('regard', 'local_forum_moderation'), ['class' => 'mt-5']);
             $urlmoderation = 'https://platform.openai.com/docs/models/moderation';
             $urlmoderation = '<a href="'.$urlmoderation.'" target="_blank"><small>'.
             get_string('moderation', 'local_forum_moderation').'</small></a>';
             $output .= html_writer::tag('p',
-            get_string('regarding', 'local_forum_moderation').' '.$urlmoderation .' '. get_string('regarding1', 'local_forum_moderation'));
+            get_string('regarding',
+                'local_forum_moderation').' '.$urlmoderation .' '. get_string('regarding1', 'local_forum_moderation'));
             $output .= html_writer::tag('p', get_string('regarding2', 'local_forum_moderation'));
             $urlguides = 'https://platform.openai.com/docs/models/moderation';
             $urlguides = '<a href="'.$urlguides.'" target="_blank"><small>'.
@@ -86,7 +88,8 @@ class about_form extends moodleform {
             $output .= html_writer::tag('p', get_string('regarding4', 'local_forum_moderation'), ['class' => 'mb-3']);
 
             $urlorg = 'https://eurecatacademy.org';
-            $urlorg = '<a href="'.$urlorg.'" target="_blank"><small>'.get_string('eurecatorg', 'local_forum_moderation').'</small></a>';
+            $urlorg = '<a href="'.$urlorg.'" target="_blank"><small>'.get_string('eurecatorg',
+                'local_forum_moderation').'</small></a>';
             $output .= html_writer::tag('h5', get_string('academytitle', 'local_forum_moderation'), ['class' => 'mt-5']);
             $output .= html_writer::tag('p', get_string('aboutus', 'local_forum_moderation').' '.$urlorg);
             $output .= html_writer::tag('p', get_string('aboutus1', 'local_forum_moderation'));
