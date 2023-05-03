@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__.'/../../config.php');
 
 $page = new moodle_page();
-$page->requires->js('/local/forum_review/amd/woocomerce.js');
+$page->requires->js('/local/forum_review/amd/woocomerce.min.js');
 
 /**
  * Insert a link to index.php on the site front page navigation menu.
@@ -43,7 +43,6 @@ function local_forum_review_extend_navigation_frontpage(navigation_node $frontpa
         );
     }
 }
-
 
 /**
  * Add link to index.php into navigation drawer.
@@ -340,7 +339,7 @@ function call_woocomerce() {
 
     $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
     global $PAGE;
-    $PAGE->requires->js('/local/forum_review/amd/woocomerce.js');
+    $PAGE->requires->js('/local/forum_review/amd/woocomerce.min.js');
     $PAGE->requires->js_init_call('woocommerce_api_active', $data);
 }
 
@@ -356,6 +355,6 @@ function call_woocomerce_status() {
 
     $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
     global $PAGE;
-    $PAGE->requires->js('/local/forum_review/amd/woocomerce.js');
+    $PAGE->requires->js('/local/forum_review/amd/woocomerce.min.js');
     $PAGE->requires->js_init_call('woocommerce_api_status', $data);
 }

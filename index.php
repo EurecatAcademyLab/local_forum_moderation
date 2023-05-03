@@ -46,7 +46,7 @@ $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
 
 $PAGE->requires->js(new moodle_url('/local/forum_review/amd/table.js'));
-$PAGE->requires->js(new moodle_url('/local/forum_review/amd/woocomerce.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_review/amd/woocomerce.min.js'));
 
 $PAGE->requires->css('/local/forum_review/styles/main.css');
 

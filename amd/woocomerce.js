@@ -21,6 +21,52 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+
+
+// Create a style
+const styleBanner = `position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(255, 255, 255, 0.7);z-index: 9998;`;const styleContent = `position: relative;top: 40%;left: 40%;    width: 30%;height: 15%;padding: 10px;display: flex;justify-content: center;align-items: center;background-image:linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);z-index: 9999;`;const styleText = `padding: 10px;`;const aStyle = `cursor : pointer;font-size: 2em;color: #fff;text-decoration: none;`;const styleClose = `color : #fff;cursor : pointer;position: absolute;top: 13%;right: 9%;font-size: 2em;`;
+
+/**
+ * To create a modal window.
+ */
+function createmodal() {
+
+    // Create HTML elements.
+    var modal = document.createElement("div");
+    modal.id = "myModal";
+    modal.classList.add("modal");
+
+    var modal_content = document.createElement("div");
+    modal_content.classList.add("modal-content");
+
+    var close_button = document.createElement("span");
+    close_button.classList.add("close");
+    close_button.innerHTML = "×";
+
+    var modal_text = document.createElement("a");
+    modal_text.href = "https://lab.eurecatacademy.org";
+    modal_text.innerHTML = "Get premium";
+
+    // Put it inside.
+    close_button.style = styleClose;
+    modal_content.style = styleText;
+    modal_text.style = aStyle;
+    modal_content.appendChild(close_button);
+    modal_content.appendChild(modal_text);
+    modal.appendChild(modal_content);
+    document.body.appendChild(modal);
+    modal_content.style = styleContent;
+    modal.style = styleBanner;
+
+    // Show modal window.
+    modal.style.display = "block";
+
+    //  Onclick event to close window.
+    close_button.onclick = function() {
+        modal.style.display = "none";
+    }
+}
+const urlbase = 'https://lab.eurecatacademy.org/'
 /**
  * Calls the WooCommerce API to activate a user's account for a specified product.
  * @async
@@ -32,7 +78,9 @@
  */
 async function woocommerce_api_active(yui, apikey, product_id, email) {
     try {
-        var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=activate';
+        const actionActivate = 'activate' 
+    
+        var url = urlbase + '?wc-api=wc-am-api&wc_am_action=' + actionActivate;
 
         const urlactual = new URL(window.location.href);
         const host = urlactual.host;
@@ -86,8 +134,7 @@ async function woocommerce_api_active(yui, apikey, product_id, email) {
 async function woocommerce_api_status(yui, apikey, product_id, email) {
     try {
 
-        var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=status';
-        
+        const actionStatus = 'status' 
         const urlactual = new URL(window.location.href);
         const host = urlactual.host;
         console.log(host);
@@ -101,6 +148,7 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
         }
         
 
+        var url = urlbase + '?wc-api=wc-am-api&wc_am_action=' + actionStatus;
         const queryString = Object.keys(params)
             .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
             .join('&');
@@ -140,20 +188,6 @@ async function woocommerce_api_status(yui, apikey, product_id, email) {
 }
 
 /**
- * Uses the SHA-256 algorithm to create a hash of the specified string.
- * @param {string} str - The string to be hashed.
- * @returns {Promise<string>} - A Promise that resolves to the hash in hexadecimal format.
- */
-async function hashString(str) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(str);
-    const buffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(buffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return hashHex;
-}
-
-/**
  * Adds text to a specified div element and applies styles for a short period of time before removing the text and styles.
  * @param {string} text - The text to be added to the div element.
  * @returns {void}
@@ -169,6 +203,21 @@ function agregarTextoAlDiv(text) {
         divInclude.innerHTML = '';
         divInclude.classList.remove('bg-light', 'mb-3', 'p-3', 'rounded', 'opacity-75');
     }, 3000);
+}
+
+
+/**
+ * Uses the SHA-256 algorithm to create a hash of the specified string.
+ * @param {string} str - The string to be hashed.
+ * @returns {Promise<string>} - A Promise that resolves to the hash in hexadecimal format.
+ */
+async function hashString(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const buffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(buffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
 }
 
 /**
