@@ -28,6 +28,10 @@ require_once($CFG->dirroot. '/local/forum_review/table.php');
 require_once($CFG->dirroot. '/local/forum_review/updatedb.php');
 require_login();
 
+
+$page = new moodle_page();
+$page->requires->js('/local/forum_review/amd/banner.js');
+
 /**
  * To call two other function
  * @param Int $id .
@@ -74,6 +78,14 @@ function reject_checked_query($id) {
     return;
 }
 
+/**
+ * To create a modal window "Get premium".
+ */
+function banner_accept(){
+    global $PAGE;
+    $PAGE->requires->js('/local/forum_review/amd/banner.js');
+    $PAGE->requires->js_init_call('createmodal()');
+}
 
 /**
  * To past some hidden fields in the submit.
@@ -84,15 +96,12 @@ class accept_post extends moodleform {
      * To Define the form accept.
      */
     public function definition() {
-
         $mform = $this->_form;
-        $mform->addElement('hidden', 'id');
-        $mform->settype('id', PARAM_INT);
-        $mform->addElement('hidden', 'post_id');
-        $mform->settype('post_id', PARAM_INT);
         $accept = get_string("accept");
-        $mform->addElement('submit', 'acceptbutton_forum_review', $accept, [
-            'class' => 'acceptbutton_forum_review m-1']);
+        $mform->addElement('submit',
+        'acceptbutton_forum_review',
+        $accept,
+        ['class' => 'acceptbutton_forum_review m-1']);
     }
 
     /**
@@ -101,6 +110,7 @@ class accept_post extends moodleform {
     public function reset() {
         redirect(new moodle_url('/local/forum_review'));
     }
+
 
 }
 
