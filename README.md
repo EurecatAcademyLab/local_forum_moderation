@@ -38,17 +38,17 @@ This tool uses AI models to detect hate speech, such as language models like Mod
 
 The development team of the plugin is committed to continuously improving the ethical standards of their product. To achieve this, they are actively working on applying new ethical toolboxes and guidelines to their development process. These toolboxes and guidelines are designed to help the team identify and address ethical concerns and considerations throughout the entire product lifecycle, from conception to implementation. ​
 
-​The AI models selected to be used are typically trained on large datasets that have been carefully curated to ensure that they are representative and diverse. This means that the models are dessigned to be as unbiassed as possible towards any particular group or ideology, and that they are capable of identifying hate speech in all its forms, regardless of who is speaking or what they are saying. More information can be found here: https://platform.openai.com/docs/guides/moderation/overview.​
+​The AI models selected to be used are typically trained on large datasets that have been carefully curated to ensure that they are representative and diverse. This means that the models are designed to be as unbiased as possible towards any particular group or ideology, and that they are capable of identifying hate speech in all its forms, regardless of who is speaking or what they are saying. More information can be found here: https://platform.openai.com/docs/guides/moderation/overview.​
 
 ​It's important to note that tools with enhanced functionality provided by AI models are never perfect and should be used in conjunction with human moderation and oversight. This helps to ensure that any potential errors or biases are caught and corrected before they have a chance to cause harm. The overall design and user interface of this tool is intended to assist human forum moderators, with final decisions left to human judgment.
 
 ## Specific information about the plugin's saved data #
 
-Although this plugin is a free version, our company will store some data for the proper functioning and maintenance of the plugin. These data will be user name, email and url of the platform where the plugin will be deployed. ​
+Although this plugin is a free version, our company will store some data for the proper functioning and maintenance of the plugin. These data will be username, email and URL of the platform where the plugin will be deployed. ​
 
-​The plugin's stay has a temporary duration, and by accepting the privacy settings you will be giving the opportunity to be sent information about the duration of the plugin, as well as other products of the company.  In no case the information will be destined to third parties or purposes that are not informative about this plugin or other plugins of the company. ​
+​The plugin's stay has a temporary duration, and by accepting the privacy settings you will be giving the opportunity to be sent information about the duration of the plugin, as well as other products of the company.  In no case, the information will be destined to third parties or purposes that are not informative about this plugin or other plugins of the company. ​
 
-If you have any questions, doubts or suggestions please do not hesitate to contact us. 
+If you have any questions, doubts or suggestions, please do not hesitate to contact us. 
 
 ## Installing via uploaded ZIP file ##
 
@@ -60,7 +60,7 @@ If you have any questions, doubts or suggestions please do not hesitate to conta
 
 ## Installing manually ##
 
-The plugin can be also installed by putting the contents of this directory to
+The plugin can also be installed by putting the contents of this directory to
 
     {your/moodle/dirroot}/local/forum_moderation
 
