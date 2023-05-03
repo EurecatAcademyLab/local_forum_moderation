@@ -64,7 +64,7 @@ function delete_modify_post($id) {
  */
 function banner_delete() {
     global $PAGE;
-    $PAGE->requires->js('/local/forum_moderation/amd/banner.js');
+    $PAGE->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
     $PAGE->requires->js_init_call('createmodal()');
 }
 
