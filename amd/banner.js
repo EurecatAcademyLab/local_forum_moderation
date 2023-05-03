@@ -26,29 +26,44 @@
 // Create a style
 const styleBanner = `
     position: fixed;
-    top: 50%;
-    left: 20%;
-    width: 50%;
-    height: 35%
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9998;
+`;
+const styleContent = `
+    position: relative;
+    top: 40%;
+    left: 40%;
+    width: 30%;
+    height: 15%;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    background-image: linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);
     z-index: 9999;
 `;
 
 const styleText = `
-    background-image: linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);
-    color: #fff;
     padding: 10px;
-    font-size: 1.5em;
 `;
 
+const aStyle = `
+    cursor : pointer;
+    font-size: 2em;
+    color: #fff;
+    text-decoration: none;
+`;
 const styleClose = `
     color : #fff;
     cursor : pointer;
-    margin-right : 10px;
-    margin-top : 10px;
+    position: absolute;
+    top: 13%;
+    right: 9%;
+    font-size: 2em;
 `;
 
 /**
@@ -68,25 +83,23 @@ function createmodal() {
     close_button.classList.add("close");
     close_button.innerHTML = "×";
 
-    var modal_text = document.createElement("p");
+    var modal_text = document.createElement("a");
+    modal_text.href = "https://lab.eurecatacademy.org";
     modal_text.innerHTML = "Get premium";
 
     // Put it inside.
     close_button.style = styleClose;
-    modal_content.appendChild(close_button);
     modal_content.style = styleText;
+    modal_text.style = aStyle;
+    modal_content.appendChild(close_button);
     modal_content.appendChild(modal_text);
     modal.appendChild(modal_content);
     document.body.appendChild(modal);
+    modal_content.style = styleContent;
     modal.style = styleBanner;
 
     // Show modal window.
     modal.style.display = "block";
-
-    // Close modal window.
-    setTimeout(function() {
-        modal.style.display = "none";
-    }, 2000);
 
     //  Onclick event to close window.
     close_button.onclick = function() {

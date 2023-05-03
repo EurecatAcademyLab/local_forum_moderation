@@ -34,22 +34,18 @@ $hassiteconfig = true;
 if (isset($hassiteconfig) && $hassiteconfig) {
     $ADMIN->add(
         'localplugins',
-        new admin_category('local_forum_review',
-        new lang_string('pluginname', 'local_forum_review')));
+        new admin_category(
+            'local_forum_review',
+            new lang_string('pluginname', 'local_forum_review'),
+        )
+    );
 
     $settingspage = new admin_settingpage(
         'managelocalforumreview',
-        new lang_string('manage', 'local_forum_review')
+        new lang_string('manage', 'local_forum_review'),
     );
 
     if ($ADMIN->fulltree) {
-
-        $settingspage->add(new admin_setting_configcheckbox(
-            'local_forum_review/readonly',
-            null,
-            new lang_string('title', 'local_forum_review'),
-            1
-        ));
 
         $settingspage->add(new admin_setting_configcheckbox(
             'local_forum_review/showinnavigation',

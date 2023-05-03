@@ -29,9 +29,6 @@ require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->dirroot. '/local/forum_review/table.php');
 require_login();
 
-// $page = new moodle_page();
-// $page->requires->js('/local/forum_review/amd/banner.js');
-
 /**
  * Change values in forum_review and forum_posts table.
  * @param Int $id .
@@ -65,7 +62,7 @@ function delete_modify_post($id) {
 /**
  * To create a modal window "Get premium".
  */
-function banner_delete(){
+function banner_delete() {
     global $PAGE;
     $PAGE->requires->js('/local/forum_review/amd/banner.js');
     $PAGE->requires->js_init_call('createmodal()');

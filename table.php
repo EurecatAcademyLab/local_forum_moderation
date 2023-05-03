@@ -170,7 +170,10 @@ function table($courseselected, $checked, $alertselected) {
                     $cl1 = "btn rounded-lg btn-outline-danger disabled d-flex align-items-center justify-content-center";
                     $delete = '<p class='.$cl1. ' aria-disabled="true" >'.get_string('deleted', 'local_forum_review').' </p>';
                 } else {
-                    $delete = '<p class="btn rounded-lg btn-outline-success disabled d-flex align-items-center justify-content-center" aria-disabled="true"> '.$accept.' </p>';
+                    $delete = '<p class="btn rounded-lg btn-outline-success disabled d-flex '
+                    . 'align-items-center justify-content-center" aria-disabled="true"> '
+                    . $accept .
+                    ' </p>';
                 }
 
             } else {

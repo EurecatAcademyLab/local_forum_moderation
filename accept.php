@@ -81,7 +81,7 @@ function reject_checked_query($id) {
 /**
  * To create a modal window "Get premium".
  */
-function banner_accept(){
+function banner_accept() {
     global $PAGE;
     $PAGE->requires->js('/local/forum_review/amd/banner.js');
     $PAGE->requires->js_init_call('createmodal()');
