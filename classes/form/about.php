@@ -17,7 +17,7 @@
 /**
  * About us - Eurecat dev
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -45,53 +45,53 @@ class about_form extends moodleform {
         $output = '';
         // Start with the object form.
         $lab = 'https://lab.eurecatacademy.org';
-        $eurecat = '<a href="'.$lab.'" target="_blank">'.get_string('eurecat', 'local_forum_review').'</a>';
+        $eurecat = '<a href="'.$lab.'" target="_blank">'.get_string('eurecat', 'local_forum_moderation').'</a>';
 
         $output .= html_writer::start_tag('div', ['class' => 'mt-5 d-flex']);
-            $output .= html_writer::tag('h4', get_string('developed', 'local_forum_review').' '.$eurecat);
+            $output .= html_writer::tag('h4', get_string('developed', 'local_forum_moderation').' '.$eurecat);
             $output .= html_writer::empty_tag('img', array('src' => "pix/eurecat_academy_logo.png", 'style' => 'width: 5%'));
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div');
 
-            $output .= html_writer::tag('h5', get_string('Describ', 'local_forum_review'), ['class' => 'mt-5']);
-            $output .= html_writer::tag('p', get_string('Describtion', 'local_forum_review'));
+            $output .= html_writer::tag('h5', get_string('Describ', 'local_forum_moderation'), ['class' => 'mt-5']);
+            $output .= html_writer::tag('p', get_string('Describtion', 'local_forum_moderation'));
 
-            $output .= html_writer::tag('h6', get_string('more', 'local_forum_review'), ['class' => 'mt-3']);
-            $output .= html_writer::tag('p', get_string('moreinfo', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('moreinfo1', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('moreinfo2', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('moreinfo3', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('moreinfo4', 'local_forum_review'), ['class' => 'mb-3']);
+            $output .= html_writer::tag('h6', get_string('more', 'local_forum_moderation'), ['class' => 'mt-3']);
+            $output .= html_writer::tag('p', get_string('moreinfo', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('moreinfo1', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('moreinfo2', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('moreinfo3', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('moreinfo4', 'local_forum_moderation'), ['class' => 'mb-3']);
 
-            $output .= html_writer::tag('h5', get_string('userprivate', 'local_forum_review'), ['class' => 'mt-5']);
-            $output .= html_writer::tag('p', get_string('userprivate1', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('userprivate2', 'local_forum_review'));
-            $gs = get_string('information', 'local_forum_review');
+            $output .= html_writer::tag('h5', get_string('userprivate', 'local_forum_moderation'), ['class' => 'mt-5']);
+            $output .= html_writer::tag('p', get_string('userprivate1', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('userprivate2', 'local_forum_moderation'));
+            $gs = get_string('information', 'local_forum_moderation');
             $urlprivacity = 'https://eurecat.org/en/privacy-policy';
             $privacity = '<a href="'.$urlprivacity.'" target="_blank"><small>'.$gs.'</small></a>';
-            $output .= html_writer::tag('p', get_string('userprivate3', 'local_forum_review').' '.$privacity, ['class' => 'mb-3']);
+            $output .= html_writer::tag('p', get_string('userprivate3', 'local_forum_moderation').' '.$privacity, ['class' => 'mb-3']);
 
-            $output .= html_writer::tag('h5', get_string('regard', 'local_forum_review'), ['class' => 'mt-5']);
+            $output .= html_writer::tag('h5', get_string('regard', 'local_forum_moderation'), ['class' => 'mt-5']);
             $urlmoderation = 'https://platform.openai.com/docs/models/moderation';
             $urlmoderation = '<a href="'.$urlmoderation.'" target="_blank"><small>'.
-            get_string('moderation', 'local_forum_review').'</small></a>';
+            get_string('moderation', 'local_forum_moderation').'</small></a>';
             $output .= html_writer::tag('p',
-            get_string('regarding', 'local_forum_review').' '.$urlmoderation .' '. get_string('regarding1', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('regarding2', 'local_forum_review'));
+            get_string('regarding', 'local_forum_moderation').' '.$urlmoderation .' '. get_string('regarding1', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('regarding2', 'local_forum_moderation'));
             $urlguides = 'https://platform.openai.com/docs/models/moderation';
             $urlguides = '<a href="'.$urlguides.'" target="_blank"><small>'.
-            get_string('guides', 'local_forum_review').'</small></a>';
-            $output .= html_writer::tag('p', get_string('regarding3', 'local_forum_review').' '. $urlguides);
-            $output .= html_writer::tag('p', get_string('regarding4', 'local_forum_review'), ['class' => 'mb-3']);
+            get_string('guides', 'local_forum_moderation').'</small></a>';
+            $output .= html_writer::tag('p', get_string('regarding3', 'local_forum_moderation').' '. $urlguides);
+            $output .= html_writer::tag('p', get_string('regarding4', 'local_forum_moderation'), ['class' => 'mb-3']);
 
             $urlorg = 'https://eurecatacademy.org';
-            $urlorg = '<a href="'.$urlorg.'" target="_blank"><small>'.get_string('eurecatorg', 'local_forum_review').'</small></a>';
-            $output .= html_writer::tag('h5', get_string('academytitle', 'local_forum_review'), ['class' => 'mt-5']);
-            $output .= html_writer::tag('p', get_string('aboutus', 'local_forum_review').' '.$urlorg);
-            $output .= html_writer::tag('p', get_string('aboutus1', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('aboutus2', 'local_forum_review'));
-            $output .= html_writer::tag('p', get_string('aboutus3', 'local_forum_review'));
+            $urlorg = '<a href="'.$urlorg.'" target="_blank"><small>'.get_string('eurecatorg', 'local_forum_moderation').'</small></a>';
+            $output .= html_writer::tag('h5', get_string('academytitle', 'local_forum_moderation'), ['class' => 'mt-5']);
+            $output .= html_writer::tag('p', get_string('aboutus', 'local_forum_moderation').' '.$urlorg);
+            $output .= html_writer::tag('p', get_string('aboutus1', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('aboutus2', 'local_forum_moderation'));
+            $output .= html_writer::tag('p', get_string('aboutus3', 'local_forum_moderation'));
 
         $output .= html_writer::end_tag('div');
 

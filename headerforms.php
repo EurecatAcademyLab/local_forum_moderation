@@ -17,7 +17,7 @@
 /**
  * Form to put it like a header.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -45,23 +45,23 @@ class select_course extends moodleform {
         foreach ($getcourse as $course) {
             $courses[$course->id] = $course->fullname;
         }
-        $courses[0] = get_string('all_courses', 'local_forum_review');
+        $courses[0] = get_string('all_courses', 'local_forum_moderation');
         ksort($courses);
 
-        $select = $mform->addElement('select', 'course', get_string('select_course', 'local_forum_review'), $courses);
+        $select = $mform->addElement('select', 'course', get_string('select_course', 'local_forum_moderation'), $courses);
         // This will select the colour blue.
-        $select->setSelected(get_string('all_courses', 'local_forum_review'));
+        $select->setSelected(get_string('all_courses', 'local_forum_moderation'));
 
         $mform->setType('course', PARAM_INT);
 
         $alerts = [
-            get_string('all_alerts', 'local_forum_review'),
-            get_string('warning', 'local_forum_review'),
-            get_string('danger', 'local_forum_review')
+            get_string('all_alerts', 'local_forum_moderation'),
+            get_string('warning', 'local_forum_moderation'),
+            get_string('danger', 'local_forum_moderation')
         ];
-        $select = $mform->addElement('select', 'alert', get_string('alert', 'local_forum_review'), $alerts);
+        $select = $mform->addElement('select', 'alert', get_string('alert', 'local_forum_moderation'), $alerts);
         $mform->setType('alert', PARAM_INT);
-        $mform->addHelpButton('alert', 'alert', 'local_forum_review');
+        $mform->addHelpButton('alert', 'alert', 'local_forum_moderation');
 
         $this->add_action_buttons(false, get_string('submit'));
 
@@ -82,7 +82,7 @@ class select_course extends moodleform {
      * Redirect to forum review.
      */
     public function reset() {
-        redirect(new moodle_url('/local/forum_review'));
+        redirect(new moodle_url('/local/forum_moderation'));
     }
 }
 

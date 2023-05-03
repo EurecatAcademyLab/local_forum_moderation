@@ -17,21 +17,21 @@
 /**
  * Index .
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_review/lib.php');
-require_once($CFG->dirroot. '/local/forum_review/header.php');
-require_once($CFG->dirroot. '/local/forum_review/table.php');
-require_once($CFG->dirroot. '/local/forum_review/updatedb.php');
-require_once($CFG->dirroot. '/local/forum_review/headerforms.php');
-require_once($CFG->dirroot. '/local/forum_review/classes/form/localpremiumform.php');
-require_once($CFG->dirroot. '/local/forum_review/classes/form/about.php');
-require_once($CFG->dirroot. '/local/forum_review/classes/form/noactive.php');
+require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
+require_once($CFG->dirroot. '/local/forum_moderation/header.php');
+require_once($CFG->dirroot. '/local/forum_moderation/table.php');
+require_once($CFG->dirroot. '/local/forum_moderation/updatedb.php');
+require_once($CFG->dirroot. '/local/forum_moderation/headerforms.php');
+require_once($CFG->dirroot. '/local/forum_moderation/classes/form/localpremiumform.php');
+require_once($CFG->dirroot. '/local/forum_moderation/classes/form/about.php');
+require_once($CFG->dirroot. '/local/forum_moderation/classes/form/noactive.php');
 
 global $CFG, $OUTPUT, $USER, $SITE, $PAGE;
 
@@ -45,12 +45,12 @@ $PAGE->requires->css(new \moodle_url($urlbase.'/b-colvis-2.3.3/b-html5-2.3.3/b-p
 $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js'), true);
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
 
-$PAGE->requires->js(new moodle_url('/local/forum_review/amd/table.js'));
-$PAGE->requires->js(new moodle_url('/local/forum_review/amd/woocomerce.min.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/table.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/woocomerce.min.js'));
 
-$PAGE->requires->css('/local/forum_review/styles/main.css');
+$PAGE->requires->css('/local/forum_moderation/styles/main.css');
 
-$pluginname = 'forum_review';
+$pluginname = 'forum_moderation';
 
 $homeurl = new moodle_url('/');
 require_login();
@@ -95,7 +95,7 @@ if (!empty($USER->newadminuser)) {
 $renderer = $PAGE->get_renderer('core_enrol');
 
 // Add capability in your plugin, to delete any post.
-$allowview = has_capability('local/forum_review:viewmessages', context_system::instance());
+$allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
 
 updatepostfr();
 
@@ -104,11 +104,11 @@ $premium = new premium_form();
 $about = new about_form();
 $noactive = new noactive_form();
 
-$precheck = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'privacy'));
+$precheck = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
 
 $activate = check_validation_time();
 call_woocomerce_status();
-$status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'status'));
+$status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
 
 echo $OUTPUT->header();
 
@@ -138,7 +138,7 @@ if (!$precheck || $precheck->value == 0) {
     $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);
 
         $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('posts', 'local_forum_review'), [
+            $output .= html_writer::tag('a', get_string('posts', 'local_forum_moderation'), [
                 'class' => 'nav-link active',
                 'data-toggle' => "tab",
                 'href' => "#postsTab"
@@ -146,7 +146,7 @@ if (!$precheck || $precheck->value == 0) {
         $output .= html_writer::end_tag('li');
 
         $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('history', 'local_forum_review'), [
+            $output .= html_writer::tag('a', get_string('history', 'local_forum_moderation'), [
                 'class' => 'nav-link',
                 'data-toggle' => "tab",
                 'href' => "#history"
@@ -154,7 +154,7 @@ if (!$precheck || $precheck->value == 0) {
         $output .= html_writer::end_tag('li');
 
         $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('analytics', 'local_forum_review'), [
+            $output .= html_writer::tag('a', get_string('analytics', 'local_forum_moderation'), [
                 'class' => 'nav-link',
                 'data-toggle' => "tab",
                 'href' => "#graphs"
@@ -162,7 +162,7 @@ if (!$precheck || $precheck->value == 0) {
         $output .= html_writer::end_tag('li');
 
         $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('about', 'local_forum_review'), [
+            $output .= html_writer::tag('a', get_string('about', 'local_forum_moderation'), [
                 'class' => 'nav-link',
                 'data-toggle' => "tab",
                 'href' => "#about"

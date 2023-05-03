@@ -17,7 +17,7 @@
 /**
  * Plugin strings are defined here - Spanish.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @category    string
  * @author      2022 Aina Palacios
  * @copyright   2022 Aina Palacios & Eurecat.dev

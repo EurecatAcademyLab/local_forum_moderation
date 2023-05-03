@@ -17,7 +17,7 @@
 /**
  * Plugin version and other meta-data are defined here.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,18 +28,18 @@ defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__.'/../../config.php');
 
 $page = new moodle_page();
-$page->requires->js('/local/forum_review/amd/woocomerce.min.js');
+$page->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
 
 /**
  * Insert a link to index.php on the site front page navigation menu.
  *
  * @param navigation_node $frontpage Node representing the front page in the navigation tree.
  */
-function local_forum_review_extend_navigation_frontpage(navigation_node $frontpage) {
+function local_forum_moderation_extend_navigation_frontpage(navigation_node $frontpage) {
     if (isloggedin() && !isguestuser()) {
         $frontpage->add(
-            get_string('pluginname', 'local_forum_review'),
-            new moodle_url('/local/forum_review/index.php')
+            get_string('pluginname', 'local_forum_moderation'),
+            new moodle_url('/local/forum_moderation/index.php')
         );
     }
 }
@@ -49,11 +49,11 @@ function local_forum_review_extend_navigation_frontpage(navigation_node $frontpa
  *
  * @param global_navigation $root Node representing the global navigation tree.
  */
-function local_forum_review_extend_navigation(global_navigation $root) {
+function local_forum_moderation_extend_navigation(global_navigation $root) {
     if (isloggedin() && !isguestuser()) {
         $node = navigation_node::create(
-            get_string('pluginname', 'local_forum_review'),
-            new moodle_url('/local/forum_review/index.php')
+            get_string('pluginname', 'local_forum_moderation'),
+            new moodle_url('/local/forum_moderation/index.php')
         );
 
         $node->showinflatnavigation = true;
@@ -91,11 +91,11 @@ function join_tables_query_update($lastmodified, $maxnum) {
  * @param Mixed $alertselected .
  * @return String $sql .
  */
-function forum_review_query($courseid, $checked, $alertselected) {
+function forum_moderation_query($courseid, $checked, $alertselected) {
     global $DB;
 
-    $precheckcourse = $DB->record_exists('local_forum_review', array('course_id' => $courseid));
-    $precheckrating = $DB->record_exists('local_forum_review', array('rating' => $alertselected));
+    $precheckcourse = $DB->record_exists('local_forum_moderation', array('course_id' => $courseid));
+    $precheckrating = $DB->record_exists('local_forum_moderation', array('rating' => $alertselected));
 
     if ($alertselected != 0 && !$precheckrating) {
         return $sql = ";";
@@ -108,13 +108,13 @@ function forum_review_query($courseid, $checked, $alertselected) {
     if ($precheckcourse) {
         $sql =
             "SELECT c.*
-            FROM {local_forum_review} c
+            FROM {local_forum_moderation} c
             JOIN {forum_discussions} fd on fd.id = c.discussion_id
             WHERE  c.rating > 0
             AND fd.course =  $courseid  AND c.checked = $checked";
     } else if (is_null($courseid) || $courseid == 0) {
         $sql = "SELECT *
-        FROM {local_forum_review} c
+        FROM {local_forum_moderation} c
         WHERE c.rating > 0 AND c.checked = ".$checked;
     }
 
@@ -130,15 +130,15 @@ function forum_review_query($courseid, $checked, $alertselected) {
  * @param Mixed $courseid .
  * @return String $sql .
  */
-function forum_review_query_all($courseid) {
+function forum_moderation_query_all($courseid) {
 
     if (is_null($courseid) || $courseid == 0) {
         $sql = "SELECT *
-        FROM {local_forum_review} f;";
+        FROM {local_forum_moderation} f;";
     } else {
         $sql =
             "SELECT c.*
-            FROM {local_forum_review} c
+            FROM {local_forum_moderation} c
             JOIN {forum_discussions} fd on fd.id = c.discussion_id
             WHERE  fd.course = $courseid;";
     }
@@ -167,18 +167,18 @@ function quarantine_query($messageid) {
  * @param Int $courseid .
  * @return String $sql .
  */
-function forum_reviewed_query($courseid) {
+function forum_moderationed_query($courseid) {
 
     if (is_null($courseid) || $courseid == 0) {
 
         $sql = "SELECT *
-        FROM {local_forum_review} f
+        FROM {local_forum_moderation} f
         WHERE f.checked = 1 and f.rating > 0
         ORDER BY f.last_modified DESC
         ";
     } else {
         $sql = "SELECT f.*
-        FROM {local_forum_review} f
+        FROM {local_forum_moderation} f
         JOIN {forum_discussions} fd on fd.id = f.discussion_id
         WHERE f.checked = 1 and f.rating > 0 and fd.course = $courseid
         ORDER BY f.last_modified DESC
@@ -218,7 +218,7 @@ function get_name_course($courseid) {
 function get_count_userpost($userid) {
     global $DB;
     $sql = "SELECT MAX(count_user) AS max_count
-    FROM {local_forum_review}
+    FROM {local_forum_moderation}
     WHERE user_id = :userid
     AND advice != 'no_action'";
     $count = $DB->get_field_sql($sql, ['userid' => $userid]);
@@ -257,7 +257,7 @@ function save_settings() {
     global $DB, $CFG;
 
     // Check if the privacity setting is enabled.
-    $existingconfigprivacity = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'privacity'));
+    $existingconfigprivacity = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacity'));
 
         $configs = array(
             array('name' => 'time', 'value' => time()),
@@ -266,12 +266,12 @@ function save_settings() {
 
         foreach ($configs as $config) {
             // Check if the configuration item already exists.
-            $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => $config['name']));
+            $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => $config['name']));
 
             // Insert the configuration item if it does not exist.
             if (!$existingconfig) {
                 $forumconfig = new stdClass();
-                $forumconfig->plugin = 'local_forum_review';
+                $forumconfig->plugin = 'local_forum_moderation';
                 $forumconfig->name = $config['name'];
                 $forumconfig->value = $config['value'];
 
@@ -286,7 +286,7 @@ function save_settings() {
  * Check if validation time has passed.
  *
  * This function retrieves the value of the 'time' and 'url' configuration
- * records from the 'config_plugins' table for the 'local_forum_review' plugin,
+ * records from the 'config_plugins' table for the 'local_forum_moderation' plugin,
  * and compares the value of 'time' with the current time to determine if
  * validation time has passed (30 days).
  *
@@ -295,8 +295,8 @@ function save_settings() {
 function check_validation_time() {
     global $DB;
 
-    $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'time'));
-    $existingconfigurl = $DB->get_record('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'url'));
+    $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'time'));
+    $existingconfigurl = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'url'));
 
     if ($existingconfig && $existingconfigurl) {
         $value = $existingconfig->value;
@@ -320,9 +320,9 @@ function check_validation_time() {
 function update_status() {
     if (check_validation_time() == false) {
         global $DB;
-        $existingconfig = $DB->get_field('config_plugins', array('plugin' => 'local_forum_review', 'name' => 'status'));
+        $existingconfig = $DB->get_field('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
         if ($existingconfig) {
-            $DB->set_field('config_plugins', 'value', '0', array('plugin' => 'local_forum_review', 'name' => 'status'));
+            $DB->set_field('config_plugins', 'value', '0', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
         }
     }
 }
@@ -333,13 +333,13 @@ function update_status() {
  */
 function call_woocomerce() {
 
-    $apikey = get_config('local_forum_review', 'apikey');
-    $productid = get_config('local_forum_review', 'productid');
-    $email = get_config('local_forum_review', 'email');
+    $apikey = get_config('local_forum_moderation', 'apikey');
+    $productid = get_config('local_forum_moderation', 'productid');
+    $email = get_config('local_forum_moderation', 'email');
 
     $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
     global $PAGE;
-    $PAGE->requires->js('/local/forum_review/amd/woocomerce.min.js');
+    $PAGE->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
     $PAGE->requires->js_init_call('woocommerce_api_active', $data);
 }
 
@@ -349,12 +349,12 @@ function call_woocomerce() {
  */
 function call_woocomerce_status() {
 
-    $apikey = get_config('local_forum_review', 'apikey');
-    $productid = get_config('local_forum_review', 'productid');
-    $email = get_config('local_forum_review', 'email');
+    $apikey = get_config('local_forum_moderation', 'apikey');
+    $productid = get_config('local_forum_moderation', 'productid');
+    $email = get_config('local_forum_moderation', 'email');
 
     $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
     global $PAGE;
-    $PAGE->requires->js('/local/forum_review/amd/woocomerce.min.js');
+    $PAGE->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
     $PAGE->requires->js_init_call('woocommerce_api_status', $data);
 }

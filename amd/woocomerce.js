@@ -15,7 +15,7 @@
 
 /**
  * Javascript & jquery file
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -228,7 +228,7 @@ async function hashString(str) {
  * @returns {void}
  */
 function setStatus(active, url) {
-    let baseUrl = url.replace(/(.*\/forum_review\/).*$/, '$1');
+    let baseUrl = url.replace(/(.*\/forum_moderation\/).*$/, '$1');
     url = baseUrl + 'classes/settings/settings.php'
 
     require(['jquery'], function($) {

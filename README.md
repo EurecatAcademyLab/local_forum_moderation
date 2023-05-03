@@ -1,4 +1,4 @@
-# forum_review #
+# forum_moderation #
 
 # Describe the plugin.
 
@@ -62,7 +62,7 @@ If you have any questions, doubts or suggestions please do not hesitate to conta
 
 The plugin can be also installed by putting the contents of this directory to
 
-    {your/moodle/dirroot}/local/forum_review
+    {your/moodle/dirroot}/local/forum_moderation
 
 Afterwards, log in to your Moodle site as an admin and go to _Site administration >
 Notifications_ to complete the installation.

@@ -17,20 +17,20 @@
 /**
  * Form to accept button
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_review/table.php');
-require_once($CFG->dirroot. '/local/forum_review/updatedb.php');
+require_once($CFG->dirroot. '/local/forum_moderation/table.php');
+require_once($CFG->dirroot. '/local/forum_moderation/updatedb.php');
 require_login();
 
 
 $page = new moodle_page();
-$page->requires->js('/local/forum_review/amd/banner.js');
+$page->requires->js('/local/forum_moderation/amd/banner.js');
 
 /**
  * To call two other function
@@ -72,8 +72,8 @@ function reject_checked_query($id) {
     $record->checked = 1;
     $record->checked_last_modified = gettimestamp();
 
-    if ($DB->record_exists('local_forum_review', array('id' => $record->id))) {
-        $DB->update_record('local_forum_review', $record);
+    if ($DB->record_exists('local_forum_moderation', array('id' => $record->id))) {
+        $DB->update_record('local_forum_moderation', $record);
     }
     return;
 }
@@ -83,7 +83,7 @@ function reject_checked_query($id) {
  */
 function banner_accept() {
     global $PAGE;
-    $PAGE->requires->js('/local/forum_review/amd/banner.js');
+    $PAGE->requires->js('/local/forum_moderation/amd/banner.js');
     $PAGE->requires->js_init_call('createmodal()');
 }
 
@@ -99,16 +99,16 @@ class accept_post extends moodleform {
         $mform = $this->_form;
         $accept = get_string("accept");
         $mform->addElement('submit',
-        'acceptbutton_forum_review',
+        'acceptbutton_forum_moderation',
         $accept,
-        ['class' => 'acceptbutton_forum_review m-1']);
+        ['class' => 'acceptbutton_forum_moderation m-1']);
     }
 
     /**
-     * To redirect to que initial page forum_review.
+     * To redirect to que initial page forum_moderation.
      */
     public function reset() {
-        redirect(new moodle_url('/local/forum_review'));
+        redirect(new moodle_url('/local/forum_moderation'));
     }
 
 

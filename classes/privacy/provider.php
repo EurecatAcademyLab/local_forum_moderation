@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * display privacity in local_forum_review.
+ * display privacity in local_forum_moderation.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -56,7 +56,7 @@ class provider implements
      * @return  collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $collection) : collection {
-        $collection->add_database_table('local_forum_review', [
+        $collection->add_database_table('local_forum_moderation', [
                 'post_id' => 'privacy:metadata:postid',
                 'message' => 'privacy:metadata:message',
                 'user_id' => 'privacy:metadata:userid',
@@ -70,7 +70,7 @@ class provider implements
                 'hate_detected' => 'privacy:metadata:hatedetected',
                 'last_modified' => 'privacy:metadata:lastmodified',
                 'checked_last_modified' => 'privacy:metadata:checkedlastmodified',
-            ], 'privacy:metadata:localforumreview');
+            ], 'privacy:metadata:localforummoderation');
         return $collection;
     }
 
@@ -89,7 +89,7 @@ class provider implements
         $sql = "SELECT  u.id , fr.post_id
         FROM {forum_posts} p
         JOIN {user} u ON p.userid = u.id
-        JOIN {local_forum_review} fr ON u.id = fr.user_id
+        JOIN {local_forum_moderation} fr ON u.id = fr.user_id
         WHERE u.id = :iduser";
         $params = [
             'iduser' => $iduser,
@@ -108,7 +108,7 @@ class provider implements
         global $DB;
 
             $params = ['userid' => $iduser];
-            $DB->delete_records('local_forum_review', $params);
+            $DB->delete_records('local_forum_moderation', $params);
             return;
     }
 }

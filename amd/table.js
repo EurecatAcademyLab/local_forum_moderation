@@ -15,7 +15,7 @@
 
 /**
  * Javascript & jquery file
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -107,14 +107,14 @@ $(document).ready(function () {
 });
 
 
-$(".deletebutton_forum_review.btn").each(function () {
+$(".deletebutton_forum_moderation.btn").each(function () {
 $(this).addClass("disabled");
 $(this).addClass("btn-outline-danger");
 $(this).addClass("rounded-lg");
 $(this).removeClass("btn-primary");
 });
 
-$(".acceptbutton_forum_review.btn").each(function () {
+$(".acceptbutton_forum_moderation.btn").each(function () {
 $(this).addClass("disabled");
 $(this).addClass("btn-outline-success");
 $(this).addClass("rounded-lg");

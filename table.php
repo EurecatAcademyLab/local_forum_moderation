@@ -17,7 +17,7 @@
 /**
  * Display Principal Table.
  *
- * @package     local_forum_review
+ * @package     local_forum_moderation
  * @author      2023 Aina Palacios, Laia Subirats, Magali Lescano, Alvaro Martin, JuanCarlo Castillo, Santi Fort
  * @copyright   2022 Eurecat.org <dev.academy@eurecat.org>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,9 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_review/lib.php');
-require_once($CFG->dirroot. '/local/forum_review/delete.php');
-require_once($CFG->dirroot. '/local/forum_review/accept.php');
+require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
+require_once($CFG->dirroot. '/local/forum_moderation/delete.php');
+require_once($CFG->dirroot. '/local/forum_moderation/accept.php');
 
 require_login();
 
@@ -45,7 +45,7 @@ function table($courseselected, $checked, $alertselected) {
     $route = $CFG->wwwroot;
     $cl = "text-info";
 
-    $sql = forum_review_query($courseselected, $checked, $alertselected);
+    $sql = forum_moderation_query($courseselected, $checked, $alertselected);
     if ($sql != ';') {
         $messages = $DB->get_records_sql($sql);
     } else {
@@ -64,9 +64,9 @@ function table($courseselected, $checked, $alertselected) {
 
         // Header.
         $htmlcontentadvice = ($checked == 1)
-            ? '<div class="no-overflow">'.get_string('advice_des_history', 'local_forum_review').'</div>'
-            : '<div class="no-overflow">'.get_string('advice_des', 'local_forum_review').'</div>';
-        $advice = get_string('advice', 'local_forum_review');
+            ? '<div class="no-overflow">'.get_string('advice_des_history', 'local_forum_moderation').'</div>'
+            : '<div class="no-overflow">'.get_string('advice_des', 'local_forum_moderation').'</div>';
+        $advice = get_string('advice', 'local_forum_moderation');
         $advice .= html_writer::start_tag('a', [
             'class' => 'btn btn-link p-0',
             'role' => "button",
@@ -82,10 +82,10 @@ function table($courseselected, $checked, $alertselected) {
         $advice .= html_writer::end_tag('a');
 
         $htmlcontentaction = ($checked == 1)
-            ? '<div class="no-overflow">'.get_string('action_des_history', 'local_forum_review').'</div>'
-            : '<div class="no-overflow">'.get_string('action_des', 'local_forum_review').'</div>';
-        $ac = get_string('action', 'local_forum_review');
-        $at = get_string('action_taked', 'local_forum_review');
+            ? '<div class="no-overflow">'.get_string('action_des_history', 'local_forum_moderation').'</div>'
+            : '<div class="no-overflow">'.get_string('action_des', 'local_forum_moderation').'</div>';
+        $ac = get_string('action', 'local_forum_moderation');
+        $at = get_string('action_taked', 'local_forum_moderation');
         $action = '<span>'.(($checked == 1) ? $at : $ac);
         $arr = [
             'class' => 'btn btn-link p-0',
@@ -106,32 +106,32 @@ function table($courseselected, $checked, $alertselected) {
         if (is_null($courseselected) || $courseselected == 0) {
             $table->align = ['left', 'left', 'left', 'center', 'center', 'center', 'right', 'center', 'center'];
             $table->head = [
-                get_string('user', 'local_forum_review'),
-                get_string('count', 'local_forum_review'),
-                get_string('hate_detected', 'local_forum_review'),
-                get_string('message', 'local_forum_review'),
-                get_string('subject', 'local_forum_review'),
-                get_string('discussion', 'local_forum_review'),
-                get_string('forum', 'local_forum_review'),
-                get_string('course', 'local_forum_review')
+                get_string('user', 'local_forum_moderation'),
+                get_string('count', 'local_forum_moderation'),
+                get_string('hate_detected', 'local_forum_moderation'),
+                get_string('message', 'local_forum_moderation'),
+                get_string('subject', 'local_forum_moderation'),
+                get_string('discussion', 'local_forum_moderation'),
+                get_string('forum', 'local_forum_moderation'),
+                get_string('course', 'local_forum_moderation')
             ];
         } else {
             $table->align = ['left', 'left', 'left', 'center', 'center', 'center', 'center', 'center'];
             $table->head = [
-                get_string('user', 'local_forum_review'),
-                get_string('count', 'local_forum_review'),
-                get_string('hate_detected', 'local_forum_review'),
-                get_string('message', 'local_forum_review'),
-                get_string('subject', 'local_forum_review'),
-                get_string('discussion', 'local_forum_review'),
-                get_string('forum', 'local_forum_review')
+                get_string('user', 'local_forum_moderation'),
+                get_string('count', 'local_forum_moderation'),
+                get_string('hate_detected', 'local_forum_moderation'),
+                get_string('message', 'local_forum_moderation'),
+                get_string('subject', 'local_forum_moderation'),
+                get_string('discussion', 'local_forum_moderation'),
+                get_string('forum', 'local_forum_moderation')
             ];
 
         }
         if ($checked == 1) {
-            array_push($table->head, get_string('checked_last_modified', 'local_forum_review'));
+            array_push($table->head, get_string('checked_last_modified', 'local_forum_moderation'));
         }
-        array_push($table->head, get_string('last_modified', 'local_forum_review'), $advice, $action);
+        array_push($table->head, get_string('last_modified', 'local_forum_moderation'), $advice, $action);
 
         foreach ($messages as $m) {
 
@@ -159,16 +159,16 @@ function table($courseselected, $checked, $alertselected) {
             $forum = '<a href="'.$foru.'" class='.$cl.' target="_blank"><strong>'.$name.'</strong></a>';
 
             // Recommendation.
-            $m->advice = '<strong>'. get_string($m->advice, 'local_forum_review') . '</strong>';
+            $m->advice = '<strong>'. get_string($m->advice, 'local_forum_moderation') . '</strong>';
 
             // Button.
             $id = intval($m->id);
             $postid = intval($m->post_id);
-            $accept = get_string('accepted', 'local_forum_review');
+            $accept = get_string('accepted', 'local_forum_moderation');
             if ($checked == 1) {
                 if ($m->reject) {
                     $cl1 = "btn rounded-lg btn-outline-danger disabled d-flex align-items-center justify-content-center";
-                    $delete = '<p class='.$cl1. ' aria-disabled="true" >'.get_string('deleted', 'local_forum_review').' </p>';
+                    $delete = '<p class='.$cl1. ' aria-disabled="true" >'.get_string('deleted', 'local_forum_moderation').' </p>';
                 } else {
                     $delete = '<p class="btn rounded-lg btn-outline-success disabled d-flex '
                     . 'align-items-center justify-content-center" aria-disabled="true"> '
