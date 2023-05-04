@@ -21,13 +21,15 @@
  */
 
 #fitem_id_deletebutton_forum_moderation.femptylabel > .col-md-3 {
-  display: none !important; }
+    display: none;
+}
 
 #fitem_id_acceptbutton_forum_moderation.femptylabel > .col-md-3 {
-  display: none !important; }
+    display: none;
+}
 
 .div-three-col {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

@@ -21,8 +21,9 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require(['jquery'], function($) {
 
-$(document).ready(function () {
+$(document).ready(function() {
     var table0 = $('#tablePost0').DataTable({
         responsive: true,
         buttons: {
@@ -64,7 +65,7 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
     var table1 = $('#tablePost1').DataTable({
         responsive: true,
         buttons: {
@@ -107,17 +108,19 @@ $(document).ready(function () {
 });
 
 
-$(".deletebutton_forum_moderation.btn").each(function () {
+$(".deletebutton_forum_moderation.btn").each(function() {
 $(this).addClass("disabled");
 $(this).addClass("btn-outline-danger");
 $(this).addClass("rounded-lg");
 $(this).removeClass("btn-primary");
 });
 
-$(".acceptbutton_forum_moderation.btn").each(function () {
+$(".acceptbutton_forum_moderation.btn").each(function() {
 $(this).addClass("disabled");
 $(this).addClass("btn-outline-success");
 $(this).addClass("rounded-lg");
 $(this).removeClass("btn-primary");
+});
+
 });
 
