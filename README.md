@@ -1,4 +1,4 @@
-# forum_moderation #
+# Forum Moderation #
 
 # Describe the plugin.
 
