@@ -62,10 +62,6 @@ function getpostsfr($lastmodified, $maxnum) {
             default:
                 $record->advice = 'no_action';
         }
-        if ($record->rating == 2) {
-            $messageid = $m->id;
-            // quarantine_query($messageid);
-        }
 
         $record->reject = 0;
         $record->checked = 0;
