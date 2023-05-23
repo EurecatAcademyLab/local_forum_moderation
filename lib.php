@@ -36,11 +36,14 @@ $page->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
  * @param navigation_node $frontpage Node representing the front page in the navigation tree.
  */
 function local_forum_moderation_extend_navigation_frontpage(navigation_node $frontpage) {
-    if (isloggedin() && !isguestuser()) {
-        $frontpage->add(
-            get_string('pluginname', 'local_forum_moderation'),
-            new moodle_url('/local/forum_moderation/index.php')
-        );
+    $allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
+    if($allowview) {
+        if (isloggedin() && !isguestuser()) {
+            $frontpage->add(
+                get_string('pluginname', 'local_forum_moderation'),
+                new moodle_url('/local/forum_moderation/index.php')
+            );
+        }
     }
 }
 
@@ -50,6 +53,10 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
  * @param global_navigation $root Node representing the global navigation tree.
  */
 function local_forum_moderation_extend_navigation(global_navigation $root) {
+    $allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
+
+    if($allowview) {
+
     if (isloggedin() && !isguestuser()) {
         $node = navigation_node::create(
             get_string('pluginname', 'local_forum_moderation'),
@@ -59,6 +66,7 @@ function local_forum_moderation_extend_navigation(global_navigation $root) {
         $node->showinflatnavigation = true;
 
         $root->add_node($node);
+    }
     }
 }
 
