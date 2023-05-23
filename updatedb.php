@@ -64,7 +64,7 @@ function getpostsfr($lastmodified, $maxnum) {
         }
         if ($record->rating == 2) {
             $messageid = $m->id;
-            quarantine_query($messageid);
+            // quarantine_query($messageid);
         }
 
         $record->reject = 0;
