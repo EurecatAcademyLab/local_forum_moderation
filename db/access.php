@@ -31,7 +31,7 @@ $capabilities = array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'user' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
         )
     ),
     'local/forum_moderation:deleteanymessages' => array(
@@ -39,7 +39,7 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'user' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
         )
     )
 );

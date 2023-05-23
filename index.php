@@ -55,6 +55,7 @@ $pluginname = 'forum_moderation';
 
 $homeurl = new moodle_url('/');
 require_login();
+require_capability('local/forum_moderation:viewmessages',context_system::instance());
 
 if (!is_siteadmin() && $datos->teacher == 0) {
     redirect($homeurl, "This feature is only available for site administrators.", 5);
