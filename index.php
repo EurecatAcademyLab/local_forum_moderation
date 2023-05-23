@@ -114,120 +114,122 @@ $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moder
 echo $OUTPUT->header();
 
 $output = "";
-
-if (!$precheck || $precheck->value == 0) {
-    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
-
-} else if (!$status || $status->value == 1) {
-
-    $courseselected = null;
-    $alertselected = 0;
-
-    if ($fromform = $dform->get_data()) {
-        require_sesskey();
-        $courseselected = $fromform->course;
-        $alertselected = $fromform->alert;
-        $dform->display();
-    } else {
-        $dform->display();
-    }
-
-    $output .= html_header($courseselected);
-    $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);
-
-        $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('posts', 'local_forum_moderation'), [
-                'class' => 'nav-link active',
-                'data-toggle' => "tab",
-                'href' => "#postsTab"
-            ]);
-        $output .= html_writer::end_tag('li');
-
-        $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('history', 'local_forum_moderation'), [
-                'class' => 'nav-link',
-                'data-toggle' => "tab",
-                'href' => "#history"
-            ]);
-        $output .= html_writer::end_tag('li');
-
-        $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('analytics', 'local_forum_moderation'), [
-                'class' => 'nav-link',
-                'data-toggle' => "tab",
-                'href' => "#graphs"
-            ]);
-        $output .= html_writer::end_tag('li');
-
-        $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
-            $output .= html_writer::tag('a', get_string('about', 'local_forum_moderation'), [
-                'class' => 'nav-link',
-                'data-toggle' => "tab",
-                'href' => "#about"
-            ]);
-        $output .= html_writer::end_tag('li');
-
-    $output .= html_writer::end_tag('ul');
-    $output .= html_writer::end_tag('div');
-
-            // Body .
-    $output .= html_writer::start_tag('div', ['class' => 'tab-content']);
-
-        $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade show active', 'id' => 'postsTab']);
-            $output .= html_writer::start_tag('div', ['class' => 'p-1 mt-4']);
-                $output .= table($courseselected, 0, $alertselected);
-            $output .= html_writer::end_tag('div');
+if($allowview) {
+    if (!$precheck || $precheck->value == 0) {
+        redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+    
+    } else if (!$status || $status->value == 1) {
+    
+        $courseselected = null;
+        $alertselected = 0;
+    
+        if ($fromform = $dform->get_data()) {
+            require_sesskey();
+            $courseselected = $fromform->course;
+            $alertselected = $fromform->alert;
+            $dform->display();
+        } else {
+            $dform->display();
+        }
+    
+        $output .= html_header($courseselected);
+        $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);
+    
+            $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
+                $output .= html_writer::tag('a', get_string('posts', 'local_forum_moderation'), [
+                    'class' => 'nav-link active',
+                    'data-toggle' => "tab",
+                    'href' => "#postsTab"
+                ]);
+            $output .= html_writer::end_tag('li');
+    
+            $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
+                $output .= html_writer::tag('a', get_string('history', 'local_forum_moderation'), [
+                    'class' => 'nav-link',
+                    'data-toggle' => "tab",
+                    'href' => "#history"
+                ]);
+            $output .= html_writer::end_tag('li');
+    
+            $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
+                $output .= html_writer::tag('a', get_string('analytics', 'local_forum_moderation'), [
+                    'class' => 'nav-link',
+                    'data-toggle' => "tab",
+                    'href' => "#graphs"
+                ]);
+            $output .= html_writer::end_tag('li');
+    
+            $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
+                $output .= html_writer::tag('a', get_string('about', 'local_forum_moderation'), [
+                    'class' => 'nav-link',
+                    'data-toggle' => "tab",
+                    'href' => "#about"
+                ]);
+            $output .= html_writer::end_tag('li');
+    
+        $output .= html_writer::end_tag('ul');
         $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'history']);
-
-            $output .= html_writer::start_tag('div');
-                $output .= $premium->definition();
-            $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
-                $output .= html_writer::start_tag('div', [
-                    'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
-                    $output .= html_writer::empty_tag('img', array('src' => "pix/hdtable.png", 'style' => 'width: 100%'));
+    
+                // Body .
+        $output .= html_writer::start_tag('div', ['class' => 'tab-content']);
+    
+            $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade show active', 'id' => 'postsTab']);
+                $output .= html_writer::start_tag('div', ['class' => 'p-1 mt-4']);
+                    $output .= table($courseselected, 0, $alertselected);
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'graphs']);
-
-            $output .= html_writer::start_tag('div');
-                $output .= $premium->definition();
-            $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
-                $output .= html_writer::start_tag('div', [
-                    'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
-                    $output .= html_writer::empty_tag('img', array('src' => "pix/hdgraph.png", 'style' => 'width: 100%'));
+    
+            $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'history']);
+    
+                $output .= html_writer::start_tag('div');
+                    $output .= $premium->definition();
+                $output .= html_writer::end_tag('div');
+    
+                $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
+                    $output .= html_writer::start_tag('div', [
+                        'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
+                        $output .= html_writer::empty_tag('img', array('src' => "pix/hdtable.png", 'style' => 'width: 100%'));
                     $output .= html_writer::end_tag('div');
+                $output .= html_writer::end_tag('div');
+    
             $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'about']);
-
-            $output .= html_writer::start_tag('div');
-                $output .= $about->definition();
             $output .= html_writer::end_tag('div');
-
+    
+            $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'graphs']);
+    
+                $output .= html_writer::start_tag('div');
+                    $output .= $premium->definition();
+                $output .= html_writer::end_tag('div');
+    
+                $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
+                    $output .= html_writer::start_tag('div', [
+                        'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
+                        $output .= html_writer::empty_tag('img', array('src' => "pix/hdgraph.png", 'style' => 'width: 100%'));
+                        $output .= html_writer::end_tag('div');
+                $output .= html_writer::end_tag('div');
+    
+            $output .= html_writer::end_tag('div');
+            $output .= html_writer::end_tag('div');
+    
+            $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'about']);
+    
+                $output .= html_writer::start_tag('div');
+                    $output .= $about->definition();
+                $output .= html_writer::end_tag('div');
+    
+            $output .= html_writer::end_tag('div');
+            $output .= html_writer::end_tag('div');
+    
         $output .= html_writer::end_tag('div');
+    
+    } else {
+        $output .= html_writer::start_tag('div');
+            $output .= $noactive->definition();
         $output .= html_writer::end_tag('div');
-
-    $output .= html_writer::end_tag('div');
-
-} else {
-    $output .= html_writer::start_tag('div');
-        $output .= $noactive->definition();
-    $output .= html_writer::end_tag('div');
+    }
+    echo $output;
+    
 }
-echo $output;
 
 echo $OUTPUT->footer();
 
