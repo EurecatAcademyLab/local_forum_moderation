@@ -97,7 +97,7 @@ $renderer = $PAGE->get_renderer('core_enrol');
 
 // Add capability in your plugin, to delete any post.
 $allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
-
+if($allowview) {
 updatepostfr();
 
 $dform = new select_course();
@@ -114,7 +114,7 @@ $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moder
 echo $OUTPUT->header();
 
 $output = "";
-if($allowview) {
+
     if (!$precheck || $precheck->value == 0) {
         redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
     
@@ -229,7 +229,7 @@ if($allowview) {
     }
     echo $output;
     
+    
+    echo $OUTPUT->footer();
 }
-
-echo $OUTPUT->footer();
 
