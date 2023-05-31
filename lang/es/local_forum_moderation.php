@@ -138,7 +138,7 @@ $string['phrase'] = 'Esta funcionalidad sólo está disponible en la versión Pr
 // Settings.
 $string['email'] = 'Correo electrónico';
 $string['email_des'] = 'Ingrese su correo';
-$string['manage'] = 'Gestionar el Moderador de foros';
+$string['manage'] = 'Moderador de foros';
 $string['showinnavigation'] = 'Mostrar en el navegador';
 $string['showinnavigation_desc'] = 'Cuando esté activada, la navegación del sitio mostrará un enlace al Análisis de Sentimiento';
 $string['apikey'] = 'APIKey';

@@ -138,7 +138,7 @@ $string['phrase'] = 'This functionality is only available in the premium version
 // Settings.
 $string['email'] = 'Email';
 $string['email_des'] = 'Insert the Email';
-$string['manage'] = 'Manage Forum Moderation';
+$string['manage'] = 'Forum Moderation';
 $string['showinnavigation'] = 'Show navegation';
 $string['showinnavigation_desc'] = 'When enabled, the site navegation will display a link to Sentiment Analysis';
 $string['apikey'] = 'APIKey';
