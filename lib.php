@@ -27,9 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
 
-$page = new moodle_page();
-$page->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
-
 /**
  * Insert a link to index.php on the site front page navigation menu.
  *
@@ -54,17 +51,16 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
 function local_forum_moderation_extend_navigation(global_navigation $root) {
 
     if(is_siteadmin()) {
+        if (isloggedin() && !isguestuser()) {
+            $node = navigation_node::create(
+                get_string('pluginname', 'local_forum_moderation'),
+                new moodle_url('/local/forum_moderation/index.php')
+            );
 
-    if (isloggedin() && !isguestuser()) {
-        $node = navigation_node::create(
-            get_string('pluginname', 'local_forum_moderation'),
-            new moodle_url('/local/forum_moderation/index.php')
-        );
+            $node->showinflatnavigation = true;
 
-        $node->showinflatnavigation = true;
-
-        $root->add_node($node);
-    }
+            $root->add_node($node);
+        }
     }
 }
 
@@ -232,137 +228,4 @@ function get_count_userpost($userid) {
     return $count;
 }
 
-/**
- * Get the actual Url.
- * @return String $actualurl.
- */
-function get_actual_url() {
 
-    $urlactual = qualified_me();
-    $urlparsed = parse_url($urlactual);
-
-    // Url base.
-    $urlbase = $urlparsed['scheme'] . "://" . $urlparsed['host'];
-
-    if (isset($urlparsed['port'])) {
-        $urlbase .= ":" . $urlparsed['port'];
-    }
-
-    $urlbase .= "/";
-    return $urlbase;
-}
-
-/**
- * Saves the configuration settings.
- * Only creates configuration values if they do not already exist in the database.
- * According to the privacy policy accepted in the settings of this plugin,
- * the user gives permission to save the URL and the activation time.
- * @return bool Returns true when save a good valñues on DB.
- */
-function save_settings() {
-    global $DB, $CFG;
-
-    // Check if the privacity setting is enabled.
-    $existingconfigprivacity = $DB->get_record('config_plugins',
-        array('plugin' => 'local_forum_moderation', 'name' => 'privacity'));
-
-        $configs = array(
-            array('name' => 'time', 'value' => time()),
-            array('name' => 'url', 'value' => strval(get_actual_url())),
-        );
-
-        foreach ($configs as $config) {
-            // Check if the configuration item already exists.
-            $existingconfig = $DB->get_record('config_plugins',
-            array('plugin' => 'local_forum_moderation', 'name' => $config['name']));
-
-            // Insert the configuration item if it does not exist.
-            if (!$existingconfig) {
-                $forumconfig = new stdClass();
-                $forumconfig->plugin = 'local_forum_moderation';
-                $forumconfig->name = $config['name'];
-                $forumconfig->value = $config['value'];
-
-                $DB->insert_record('config_plugins', $forumconfig);
-            }
-        }
-
-        return true;
-}
-
-/**
- * Check if validation time has passed.
- *
- * This function retrieves the value of the 'time' and 'url' configuration
- * records from the 'config_plugins' table for the 'local_forum_moderation' plugin,
- * and compares the value of 'time' with the current time to determine if
- * validation time has passed (30 days).
- *
- * @return bool Returns false if validation time has passed, otherwise true.
- */
-function check_validation_time() {
-    global $DB;
-
-    $existingconfig = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'time'));
-    $existingconfigurl = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'url'));
-
-    if ($existingconfig && $existingconfigurl) {
-        $value = $existingconfig->value;
-        $thirtydays = 30 * 24 * 60 * 60;
-        $current = time();
-
-        if ($value + $thirtydays <= $current) {
-            return false;
-        } else {
-            return true;
-        }
-    } else {
-        return true;
-    }
-}
-
-/**
- * This function changes the staus of the plugin on the table config plugins on the DB.
- * @return Void.
- */
-function update_status() {
-    if (check_validation_time() == false) {
-        global $DB;
-        $existingconfig = $DB->get_field('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
-        if ($existingconfig) {
-            $DB->set_field('config_plugins', 'value', '0', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
-        }
-    }
-}
-
-/**
- * This function get data from config settings and connect with js function.
- * @return Void.
- */
-function call_woocomerce() {
-
-    $apikey = get_config('local_forum_moderation', 'apikey');
-    $productid = get_config('local_forum_moderation', 'productid');
-    $email = get_config('local_forum_moderation', 'email');
-
-    $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
-    global $PAGE;
-    $PAGE->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
-    $PAGE->requires->js_init_call('woocommerce_api_active', $data);
-}
-
-/**
- * This function get data from config settings and confirm the status.
- * @return Void.
- */
-function call_woocomerce_status() {
-
-    $apikey = get_config('local_forum_moderation', 'apikey');
-    $productid = get_config('local_forum_moderation', 'productid');
-    $email = get_config('local_forum_moderation', 'email');
-
-    $data = array("apikey" => $apikey, "productid" => $productid, 'email' => $email);
-    global $PAGE;
-    $PAGE->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
-    $PAGE->requires->js_init_call('woocommerce_api_status', $data);
-}

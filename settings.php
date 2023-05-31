@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__.'/../../config.php');
-require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
+require_once($CFG->dirroot. '/local/forum_moderation/classes/connected/query.php');
 require_once($CFG->libdir . '/adminlib.php');
 require_login();
 
@@ -103,7 +103,7 @@ if (isset($hassiteconfig) && $hassiteconfig) {
             'maxlength="50"readonly'
         );
 
-        $apikeysetting->set_updatedcallback(call_woocomerce());
+        $apikeysetting->set_updatedcallback(call_woocomerce_forum());
 
         $settingspage->add($apikeysetting);
 
@@ -132,7 +132,6 @@ if (isset($hassiteconfig) && $hassiteconfig) {
             $PAGE->navbar->add(get_string('manage', 'local_forum_moderation'));
         }
         $settingspage->add($privacycheckbox);
-
 
         save_settings();
 
