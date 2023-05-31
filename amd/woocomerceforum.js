@@ -111,7 +111,6 @@ async function woocommerce_api_active_forum(yui, apikey, product_id, email) {
         let urlactualString = window.location.href;
         let newUrl = urlactualString.replace(/\/admin(.*)$/, '');
         let finalUrl = newUrl + '/local/forum_moderation/classes/settings/forumsavehash.php'
-        console.log(finalUrl);
 
         const urlactualForum = new URL(window.location.href);
         const host = urlactualForum.host;
@@ -213,25 +212,21 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
                     if (urlForum.indexOf("index") !== -1) {
                         urlSettingForum = urlForum.replace(/index.+$/, 'classes/settings/settingsforum.php');
                         finalUrlForum = urlForum.replace(/index.+$/, 'classes/settings/forumsavehash.php');
-                        console.log('final ' + finalUrlForum)
-                        console.log('setting ' + urlSettingForum)
                     } else {
                         urlSettingForum = urlForum.replace(/\/admin\/.*$/, '/local/forum_moderation/classes/settings/settingsforum.php');
                         finalUrlForum = urlForum.replace(/\/admin\/.*$/, '/local/forum_moderation/classes/settings/forumsavehash.php');
-                        console.log('final ' + finalUrlForum)
-                        console.log('setting ' + urlSettingForum)
                     }
     
                     // handle data
                     if (data.status_check == 'active') {
                         var active = 1;
-                        // sethForum(hash, finalUrlForum, host);
-                        // setStatusForum(active, urlSettingForum);
+                        sethForum(hash, finalUrlForum, host);
+                        setStatusForum(active, urlSettingForum);
                         insertIntoDivForum('Active User');
                         console.log('Status Forum Moderation: ' + data.status_check);
                     } else {
                         var active = 0;
-                        // setStatusForum(active, urlSettingForum);
+                        setStatusForum(active, urlSettingForum);
                         console.log('Status Forum Moderation: ' + data.status_check);
                     }
                 }  else {

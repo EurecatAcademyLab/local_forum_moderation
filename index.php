@@ -107,19 +107,35 @@ $premium = new premium_form();
 $about = new about_form();
 $noactiveforum = new noactive_form();
 
-$precheck = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
+$privacyforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
+$apikeycheckforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'apikey'));
+$emailforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'email'));
+$productforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'productid'));
+
 
 call_woocomerce_status_forum();
 $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
+
+if (empty($emailforum) || strlen($emailforum->value) == 0 ||
+$emailforum->value == '' || $emailforum->value == null || !$emailforum) {
+    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+}
+if (!$privacyforum || $privacyforum->value == 0) {
+    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+}
+if ( !$apikeycheckforum || $apikeycheckforum->value != 'd564dde308ff319571349c617a9185dec25893d1') {
+    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+}
+if (!$productforum || $productforum->value != 39 ) {
+    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+}
+
 
 echo $OUTPUT->header();
 
 $output = "";
 
-    if (!$precheck || $precheck->value == 0) {
-        redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
-    
-    } else if (!$status || $status->value == 1) {
+    if (!$status || $status->value == 1) {
     
         $courseselected = null;
         $alertselected = 0;
