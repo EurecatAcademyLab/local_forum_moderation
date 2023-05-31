@@ -56,7 +56,7 @@ $pluginname = 'forum_moderation';
 
 $homeurl = new moodle_url('/');
 require_login();
-require_capability('local/forum_moderation:viewmessages',context_system::instance());
+require_capability('local/forum_moderation:viewmessages', context_system::instance());
 
 if (!is_siteadmin() && $datos->teacher == 0) {
     redirect($homeurl, "This feature is only available for site administrators.", 5);
@@ -69,7 +69,7 @@ if (!is_siteadmin() && $datos->teacher == 0) {
 $url = new moodle_url('/local/'.$pluginname.'/');
 $title = get_string('moderation', 'local_'.$pluginname);
 $titleextra = '<small>'.get_string('pluginnameextra', 'local_'.$pluginname).'</small>';
-$heading = get_string('pluginname', 'local_'.$pluginname) .' '. $titleextra .' '. $eurecat;
+$heading = get_string('pluginname', 'local_'.$pluginname) .' '. $titleextra;
 if ($CFG->version >= 2013051400) { // Moodle 2.5+.
     $context = context_system::instance();
 } else {
@@ -99,47 +99,45 @@ $renderer = $PAGE->get_renderer('core_enrol');
 
 // Add capability in your plugin, to delete any post.
 $allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
-if($allowview) {
-updatepostfr();
+if ($allowview) {
+    updatepostfr();
+    $dform = new select_course();
+    $premium = new premium_form();
+    $about = new about_form();
+    $noactiveforum = new noactive_form();
 
-$dform = new select_course();
-$premium = new premium_form();
-$about = new about_form();
-$noactiveforum = new noactive_form();
-
-$privacyforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
-$apikeycheckforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'apikey'));
-$emailforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'email'));
-$productforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'productid'));
-
-
-call_woocomerce_status_forum();
-$status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
-
-if (empty($emailforum) || strlen($emailforum->value) == 0 ||
-$emailforum->value == '' || $emailforum->value == null || !$emailforum) {
-    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
-}
-if (!$privacyforum || $privacyforum->value == false) {
-    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
-}
-if ( !$apikeycheckforum || $apikeycheckforum->value != 'd564dde308ff319571349c617a9185dec25893d1') {
-    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
-}
-if (!$productforum || $productforum->value != 39 ) {
-    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
-}
+    $privacyforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
+    $apikeycheckforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'apikey'));
+    $emailforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'email'));
+    $productforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'productid'));
 
 
-echo $OUTPUT->header();
+    call_woocomerce_status_forum();
+    $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
 
-$output = "";
+    if (empty($emailforum) || strlen($emailforum->value) == 0 ||
+    $emailforum->value == '' || $emailforum->value == null || !$emailforum) {
+        redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
+    }
+    if (!$privacyforum || $privacyforum->value == false) {
+        redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
+    }
+    if ( !$apikeycheckforum || $apikeycheckforum->value != 'd564dde308ff319571349c617a9185dec25893d1') {
+        redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
+    }
+    if (!$productforum || $productforum->value != 39 ) {
+        redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
+    }
+
+    echo $OUTPUT->header();
+
+    $output = "";
 
     if (!$status || $status->value == 1) {
-    
+
         $courseselected = null;
         $alertselected = 0;
-    
+
         if ($fromform = $dform->get_data()) {
             require_sesskey();
             $courseselected = $fromform->course;
@@ -148,10 +146,10 @@ $output = "";
         } else {
             $dform->display();
         }
-    
+
         $output .= html_header($courseselected);
         $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);
-    
+
             $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
                 $output .= html_writer::tag('a', get_string('posts', 'local_forum_moderation'), [
                     'class' => 'nav-link active',
@@ -159,7 +157,7 @@ $output = "";
                     'href' => "#postsTab"
                 ]);
             $output .= html_writer::end_tag('li');
-    
+
             $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
                 $output .= html_writer::tag('a', get_string('history', 'local_forum_moderation'), [
                     'class' => 'nav-link',
@@ -167,7 +165,7 @@ $output = "";
                     'href' => "#history"
                 ]);
             $output .= html_writer::end_tag('li');
-    
+
             $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
                 $output .= html_writer::tag('a', get_string('analytics', 'local_forum_moderation'), [
                     'class' => 'nav-link',
@@ -175,7 +173,7 @@ $output = "";
                     'href' => "#graphs"
                 ]);
             $output .= html_writer::end_tag('li');
-    
+
             $output .= html_writer::start_tag('li', ['class' => 'nav-item waves-effect waves-light']);
                 $output .= html_writer::tag('a', get_string('about', 'local_forum_moderation'), [
                     'class' => 'nav-link',
@@ -183,70 +181,69 @@ $output = "";
                     'href' => "#about"
                 ]);
             $output .= html_writer::end_tag('li');
-    
+
         $output .= html_writer::end_tag('ul');
         $output .= html_writer::end_tag('div');
-    
+
                 // Body .
         $output .= html_writer::start_tag('div', ['class' => 'tab-content']);
-    
+
             $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade show active', 'id' => 'postsTab']);
                 $output .= html_writer::start_tag('div', ['class' => 'p-1 mt-4']);
                     $output .= table($courseselected, 0, $alertselected);
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
-    
+
             $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'history']);
-    
+
                 $output .= html_writer::start_tag('div');
                     $output .= $premium->definition();
                 $output .= html_writer::end_tag('div');
-    
+
                 $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
                     $output .= html_writer::start_tag('div', [
                         'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
                         $output .= html_writer::empty_tag('img', array('src' => "pix/hdtable.png", 'style' => 'width: 100%'));
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
-    
+
             $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
-    
+
             $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'graphs']);
-    
+
                 $output .= html_writer::start_tag('div');
                     $output .= $premium->definition();
                 $output .= html_writer::end_tag('div');
-    
+
                 $output .= html_writer::start_tag('div', ['class' => 'mt-2 d-flex flex-column align-items-center']);
                     $output .= html_writer::start_tag('div', [
                         'class' => 'd-flex justify-content-center align-items-center overflow-hidden mt-6 border w-75']);
                         $output .= html_writer::empty_tag('img', array('src' => "pix/hdgraph.png", 'style' => 'width: 100%'));
                         $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
-    
+
             $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
-    
+
             $output .= html_writer::start_tag('div', ['class' => 'tab-pane fade mt-4', 'id' => 'about']);
-    
+
                 $output .= html_writer::start_tag('div');
                     $output .= $about->definition();
                 $output .= html_writer::end_tag('div');
-    
+
             $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
-    
+
         $output .= html_writer::end_tag('div');
-    
+
     } else {
         $output .= html_writer::start_tag('div');
             $output .= $noactiveforum->definition();
         $output .= html_writer::end_tag('div');
     }
     echo $output;
-    
-    
+
     echo $OUTPUT->footer();
 }
 

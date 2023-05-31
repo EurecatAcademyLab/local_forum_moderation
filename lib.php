@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
+require_login();
 
 /**
  * Insert a link to index.php on the site front page navigation menu.
@@ -33,7 +34,7 @@ require_once(__DIR__.'/../../config.php');
  * @param navigation_node $frontpage Node representing the front page in the navigation tree.
  */
 function local_forum_moderation_extend_navigation_frontpage(navigation_node $frontpage) {
-    if(is_siteadmin()) {
+    if (is_siteadmin()) {
         if (isloggedin() && !isguestuser()) {
             $frontpage->add(
                 get_string('pluginname', 'local_forum_moderation'),
@@ -50,7 +51,7 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
  */
 function local_forum_moderation_extend_navigation(global_navigation $root) {
 
-    if(is_siteadmin()) {
+    if (is_siteadmin()) {
         if (isloggedin() && !isguestuser()) {
             $node = navigation_node::create(
                 get_string('pluginname', 'local_forum_moderation'),
