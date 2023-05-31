@@ -120,7 +120,7 @@ async function woocommerce_api_active_forum(yui, apikey, product_id, email) {
 
         var params = {
             instance: hash,
-            object: email + ',' + hash,
+            object: email + ',' + host,
             product_id: product_id,
             api_key: apikey
         }
@@ -189,7 +189,7 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
     
             var params = {
                 instance: hash,
-                object: email + ',' + hash,
+                object: email + ',' + host,
                 product_id: productid,
                 api_key: apikey
             }
