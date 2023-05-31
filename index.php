@@ -33,6 +33,7 @@ require_once($CFG->dirroot. '/local/forum_moderation/headerforms.php');
 require_once($CFG->dirroot. '/local/forum_moderation/classes/form/localpremiumform.php');
 require_once($CFG->dirroot. '/local/forum_moderation/classes/form/about.php');
 require_once($CFG->dirroot. '/local/forum_moderation/classes/form/noactive.php');
+require_once($CFG->dirroot. '/local/forum_moderation/classes/connected/query.php');
 
 global $CFG, $OUTPUT, $USER, $SITE, $PAGE;
 
@@ -47,7 +48,7 @@ $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
 
 $PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/table.js'));
-$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/woocomerce.min.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/woocomerceforum.js'));
 
 $PAGE->requires->css('/local/forum_moderation/styles/main.css');
 
@@ -104,12 +105,11 @@ updatepostfr();
 $dform = new select_course();
 $premium = new premium_form();
 $about = new about_form();
-$noactive = new noactive_form();
+$noactiveforum = new noactive_form();
 
 $precheck = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
 
-$activate = check_validation_time();
-call_woocomerce_status();
+call_woocomerce_status_forum();
 $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
 
 echo $OUTPUT->header();
@@ -225,7 +225,7 @@ $output = "";
     
     } else {
         $output .= html_writer::start_tag('div');
-            $output .= $noactive->definition();
+            $output .= $noactiveforum->definition();
         $output .= html_writer::end_tag('div');
     }
     echo $output;

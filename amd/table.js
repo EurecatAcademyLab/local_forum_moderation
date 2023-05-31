@@ -108,19 +108,19 @@ $(document).ready(function() {
 });
 
 
-$(".deletebutton_forum_moderation.btn").each(function() {
-$(this).addClass("disabled");
-$(this).addClass("btn-outline-danger");
-$(this).addClass("rounded-lg");
-$(this).removeClass("btn-primary");
-});
+// $(".deletebutton_forum_moderation.btn").each(function() {
+// $(this).addClass("disabled");
+// $(this).addClass("btn-outline-danger");
+// $(this).addClass("rounded-lg");
+// $(this).removeClass("btn-primary");
+// });
 
-$(".acceptbutton_forum_moderation.btn").each(function() {
-$(this).addClass("disabled");
-$(this).addClass("btn-outline-success");
-$(this).addClass("rounded-lg");
-$(this).removeClass("btn-primary");
-});
+// $(".acceptbutton_forum_moderation.btn").each(function() {
+// $(this).addClass("disabled");
+// $(this).addClass("btn-outline-success");
+// $(this).addClass("rounded-lg");
+// $(this).removeClass("btn-primary");
+// });
 
 });
 

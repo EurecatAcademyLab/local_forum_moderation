@@ -53,7 +53,7 @@ function delete_modify_post($id) {
                                     FROM {local_forum_moderation} f
                                     WHERE f.id = ?;", array($id));
     $recorddelete->id = $idpost->post_id;
-    $recorddelete->deleted = 1;
+    $recorddelete->deleted = 0;
     if ($DB->record_exists('forum_posts', array('id' => $recorddelete->id))) {
         $DB->update_record('forum_posts', $recorddelete);
     }

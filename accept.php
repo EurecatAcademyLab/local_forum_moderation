@@ -30,7 +30,7 @@ require_login();
 
 
 $page = new moodle_page();
-$page->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
+$page->requires->js('/local/forum_moderation/amd/woocomerceforum.js');
 
 /**
  * To call two other function
@@ -83,7 +83,7 @@ function reject_checked_query($id) {
  */
 function banner_accept() {
     global $PAGE;
-    $PAGE->requires->js('/local/forum_moderation/amd/woocomerce.min.js');
+    $PAGE->requires->js('/local/forum_moderation/amd/woocomerceforum.js');
     $PAGE->requires->js_init_call('createmodal()');
 }
 

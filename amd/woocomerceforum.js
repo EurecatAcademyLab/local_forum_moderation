@@ -21,10 +21,10 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-const styleBanner=`position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(255, 255, 255, 0.7);z-index: 9998;`;
+const styleBanner =`position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(255, 255, 255, 0.7);z-index: 9998;`;
 const styleContent=`position: relative;top: 40%;left: 40%;    width: 30%;height: 15%;padding: 10px;display: flex;justify-content: center;align-items: center;background-image:linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);z-index: 9999;`;
-const styleText=`padding: 10px;`;
-const aStyle=`cursor : pointer;font-size: 2em;color: #fff;text-decoration: none;`;
+const styleText =`padding: 10px;`;
+const aStyle =`cursor : pointer;font-size: 2em;color: #fff;text-decoration: none;`;
 const styleClose=`color : #fff;cursor : pointer;position: absolute;top: 13%;right: 9%;font-size: 2em;`;
 
 function createmodal(){
@@ -111,6 +111,7 @@ async function woocommerce_api_active_forum(yui, apikey, product_id, email) {
         let urlactualString = window.location.href;
         let newUrl = urlactualString.replace(/\/admin(.*)$/, '');
         let finalUrl = newUrl + '/local/forum_moderation/classes/settings/forumsavehash.php'
+        console.log(finalUrl);
 
         const urlactualForum = new URL(window.location.href);
         const host = urlactualForum.host;
@@ -207,29 +208,32 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
                 if (xhr.status === 200) {
                     var data = xhr.response;
 
-                    const urlsettingForum = window.location.href;
+                    const urlForum = window.location.href;
                     let urlSettingForum, finalUrlForum;
-                    if (urlsettingForum.indexOf("index") !== -1) {
-                        urlSettingForum = urlsettingForum.replace(/index.+$/, 'classes/settings/settingsforum.php');
-                        finalUrlTeams = urlsettingForum.replace(/index.+$/, 'classes/settings/forumsavehash.php');
+                    if (urlForum.indexOf("index") !== -1) {
+                        urlSettingForum = urlForum.replace(/index.+$/, 'classes/settings/settingsforum.php');
+                        finalUrlForum = urlForum.replace(/index.+$/, 'classes/settings/forumsavehash.php');
+                        console.log('final ' + finalUrlForum)
+                        console.log('setting ' + urlSettingForum)
                     } else {
-                        urlSettingForum = urlsettingForum.replace(/\/admin\/.*$/, '/local/classroom_teams/classes/settings/settingsforum.php');
-                        finalUrlTeams = urlsettingForum.replace(/\/admin\/.*$/, '/local/classroom_teams/classes/settings/forumsavehash.php');
+                        urlSettingForum = urlForum.replace(/\/admin\/.*$/, '/local/forum_moderation/classes/settings/settingsforum.php');
+                        finalUrlForum = urlForum.replace(/\/admin\/.*$/, '/local/forum_moderation/classes/settings/forumsavehash.php');
+                        console.log('final ' + finalUrlForum)
+                        console.log('setting ' + urlSettingForum)
                     }
     
                     // handle data
                     if (data.status_check == 'active') {
                         var active = 1;
-                        sethFORUM(hash, finalUrlTeams, host);
-                        setStatus(active, urlsettingForum);
+                        // sethForum(hash, finalUrlForum, host);
+                        // setStatusForum(active, urlSettingForum);
                         insertIntoDivForum('Active User');
                         console.log('Status Forum Moderation: ' + data.status_check);
                     } else {
                         var active = 0;
-                        setStatus(active, urlsettingForum);
+                        // setStatusForum(active, urlSettingForum);
                         console.log('Status Forum Moderation: ' + data.status_check);
                     }
-                    seth(hash, urlsaveh)
                 }  else {
                     // handle error
                     console.error('Error getting data from API endpoint');
@@ -366,7 +370,7 @@ function validateProductForum() {
 function validateProductForumCorrect() {
     var existingErrorDiv = document.getElementById("id_fm_unvalid_product");
     if (!existingErrorDiv) {
-        var element = document.getElementById("id_s_local_foprum_moderation_productid");
+        var element = document.getElementById("id_s_local_forum_moderation_productid");
         if (element) {
             var sibling = element.nextSibling;
             var errorDiv = document.createElement("div");
