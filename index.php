@@ -118,16 +118,16 @@ $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moder
 
 if (empty($emailforum) || strlen($emailforum->value) == 0 ||
 $emailforum->value == '' || $emailforum->value == null || !$emailforum) {
-    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
 }
 if (!$privacyforum || $privacyforum->value == 0) {
-    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
 }
 if ( !$apikeycheckforum || $apikeycheckforum->value != 'd564dde308ff319571349c617a9185dec25893d1') {
-    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
 }
 if (!$productforum || $productforum->value != 39 ) {
-    redirect (new moodle_url('/admin/settings.php?section=managelocalforummoderation'));
+    redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
 }
 
 
