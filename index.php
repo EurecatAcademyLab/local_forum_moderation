@@ -120,7 +120,7 @@ if (empty($emailforum) || strlen($emailforum->value) == 0 ||
 $emailforum->value == '' || $emailforum->value == null || !$emailforum) {
     redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
 }
-if (!$privacyforum || $privacyforum->value == 0) {
+if (!$privacyforum || $privacyforum->value == false) {
     redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
 }
 if ( !$apikeycheckforum || $apikeycheckforum->value != 'd564dde308ff319571349c617a9185dec25893d1') {
