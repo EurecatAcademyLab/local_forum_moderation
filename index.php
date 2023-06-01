@@ -100,7 +100,7 @@ $renderer = $PAGE->get_renderer('core_enrol');
 // Add capability in your plugin, to delete any post.
 $allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
 if ($allowview) {
-    updatepostfr();
+
     $dform = new select_course();
     $premium = new premium_form();
     $about = new about_form();
@@ -134,7 +134,7 @@ if ($allowview) {
     $output = "";
 
     if (!$status || $status->value == 1) {
-
+        updatepostfr();
         $courseselected = null;
         $alertselected = 0;
 
