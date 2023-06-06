@@ -111,10 +111,6 @@ if ($allowview) {
     $emailforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'email'));
     $productforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'productid'));
 
-
-    call_woocomerce_status_forum();
-    $status = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
-
     if (empty($emailforum) || strlen($emailforum->value) == 0 ||
     $emailforum->value == '' || $emailforum->value == null || !$emailforum) {
         redirect (new moodle_url('/admin/settings.php?section=localforummoderation'));
@@ -130,10 +126,12 @@ if ($allowview) {
     }
 
     echo $OUTPUT->header();
+    call_woocomerce_status_forum();
+    $statusforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
 
     $output = "";
 
-    if (!$status || $status->value == 1) {
+    if ($statusforum->value == 1) {
         updatepostfr();
         $courseselected = null;
         $alertselected = 0;

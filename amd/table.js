@@ -108,6 +108,36 @@ $(document).ready(function() {
 });
 
 
+const styleBannerForum =`position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(255, 255, 255, 0.7);z-index: 9998;`;
+const styleContent=`position: relative;top: 40%;left: 40%;    width: 30%;height: 15%;padding: 10px;display: flex;justify-content: center;align-items: center;background-image:linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);z-index: 9999;`;
+const styleText =`padding: 10px;`;
+const aStyle =`cursor : pointer;font-size: 2em;color: #fff;text-decoration: none;`;
+const styleClose=`color : #fff;cursor : pointer;position: absolute;top: 13%;right: 9%;font-size: 2em;`;
+
+function createmodal(){
+    var modal=document.createElement("div");
+    modal.id="myModal";
+    modal.classList.add("modal");
+    var modal_content=document.createElement("div");
+    modal_content.classList.add("modal-content");
+    var close_button=document.createElement("span");
+    close_button.classList.add("close");
+    close_button.innerHTML="×";
+    var modal_text=document.createElement("a");
+    modal_text.href="https://lab.eurecatacademy.org";
+    modal_text.innerHTML="Get premium";
+    close_button.style=styleClose;
+    modal_content.style=styleText;
+    modal_text.style=aStyle;modal_content.appendChild(close_button);
+    modal_content.appendChild(modal_text);
+    modal.appendChild(modal_content);
+    document.body.appendChild(modal);
+    modal_content.style = styleContent;
+    modal.style = styleBannerForum ;
+    modal.style.display="block";
+    close_button.onclick=function(){modal.style.display="none"}
+}
+
 // $(".deletebutton_forum_moderation.btn").each(function() {
 // $(this).addClass("disabled");
 // $(this).addClass("btn-outline-danger");

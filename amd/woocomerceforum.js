@@ -21,19 +21,6 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-const styleBanner =`position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(255, 255, 255, 0.7);z-index: 9998;`;
-const styleContent=`position: relative;top: 40%;left: 40%;    width: 30%;height: 15%;padding: 10px;display: flex;justify-content: center;align-items: center;background-image:linear-gradient(to bottom left, #465f9b, #755794, #6d76ae);z-index: 9999;`;
-const styleText =`padding: 10px;`;
-const aStyle =`cursor : pointer;font-size: 2em;color: #fff;text-decoration: none;`;
-const styleClose=`color : #fff;cursor : pointer;position: absolute;top: 13%;right: 9%;font-size: 2em;`;
-
-function createmodal(){
-    var modal=document.createElement("div");
-    modal.id="myModal";
-    modal.classList.add("modal");
-    var modal_content=document.createElement("div");
-    modal_content.classList.add("modal-content");var close_button=document.createElement("span");close_button.classList.add("close");close_button.innerHTML="×";var modal_text=document.createElement("a");modal_text.href="https://lab.eurecatacademy.org";modal_text.innerHTML="Get premium";close_button.style=styleClose;modal_content.style=styleText;modal_text.style=aStyle;modal_content.appendChild(close_button);modal_content.appendChild(modal_text);modal.appendChild(modal_content);document.body.appendChild(modal);modal_content.style=styleContent;modal.style=styleBanner;modal.style.display="block";close_button.onclick=function(){modal.style.display="none"}
-}
 
 /**
  * Documentation for the setStatus function.
@@ -172,10 +159,10 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
         email = email.toString().replace(/\s+/g, "");
         if (email.length == 0 || email == '') {
             validateEmailForum();
-        }  else if (!productid  || productid != 39){
-            validateProductForum();
         } else if (apikey != 'd564dde308ff319571349c617a9185dec25893d1'|| apikey == 0 || apikey == '' || apikey.length == 0) {
             validateApikeyForum();
+        } else if (!productid  || productid != 39){
+            validateProductForum();
         } else if ( privacy == 0){
             validatePrivacyForum();
         } else if (apikey == 'd564dde308ff319571349c617a9185dec25893d1' && productid == 39 && plugin == 'forum_moderation') {
@@ -208,26 +195,35 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
                     var data = xhr.response;
 
                     const urlForum = window.location.href;
-                    let urlSettingForum, finalUrlForum;
+                    let urlSettingForum;
                     if (urlForum.indexOf("index") !== -1) {
                         urlSettingForum = urlForum.replace(/index.+$/, 'classes/settings/settingsforum.php');
-                        finalUrlForum = urlForum.replace(/index.+$/, 'classes/settings/forumsavehash.php');
+                    } else if (urlForum.indexOf("admin") !== -1){
+                        urlSettingForum = urlForum.replace(/admin.+$/, '/local/forum_moderation/classes/settings/settingsforum.php');
                     } else {
-                        urlSettingForum = urlForum.replace(/\/admin\/.*$/, '/local/forum_moderation/classes/settings/settingsforum.php');
-                        finalUrlForum = urlForum.replace(/\/admin\/.*$/, '/local/forum_moderation/classes/settings/forumsavehash.php');
+                        urlSettingForum = urlForum + 'classes/settings/settingsforum.php'
                     }
     
+                    var active = 0;
                     // handle data
-                    if (data.status_check == 'active') {
-                        var active = 1;
-                        sethForum(hash, finalUrlForum, host);
+                    if (data.code) {
                         setStatusForum(active, urlSettingForum);
-                        insertIntoDivForum('Active User');
-                        console.log('Status Forum Moderation: ' + data.status_check);
+                        console.log('Status Forum Moderation False') ;
                     } else {
-                        var active = 0;
-                        setStatusForum(active, urlSettingForum);
-                        console.log('Status Forum Moderation: ' + data.status_check);
+                        console.log(data)
+                        let product_title_forum = data.data.resources[0].product_title
+                        let product_id_forum = data.data.resources[0].product_id
+                        product_id_forum = parseInt(product_id_forum)
+                        if (data.status_check == 'active' && product_title_forum == 'Forum Moderation Basic' && product_id_forum == 39) {
+                        // if (data.status_check == 'active') {
+                            active = 1;
+                            setStatusForum(active, urlSettingForum);
+                            insertIntoDivForum('Active User');
+                            console.log('Status Forum Moderation T: ' + data.status_check);
+                        } else {
+                            setStatusForum(active, urlSettingForum);
+                            console.log('Status Forum Moderation F: ' + data.status_check);
+                        }
                     }
                 }  else {
                     // handle error
