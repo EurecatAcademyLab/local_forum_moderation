@@ -198,10 +198,13 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
                     let urlSettingForum;
                     if (urlForum.indexOf("index") !== -1) {
                         urlSettingForum = urlForum.replace(/index.+$/, 'classes/settings/settingsforum.php');
+                        console.log('index' + urlSettingForum)
                     } else if (urlForum.indexOf("admin") !== -1){
                         urlSettingForum = urlForum.replace(/admin.+$/, '/local/forum_moderation/classes/settings/settingsforum.php');
+                        console.log('admin' + urlSettingForum)
                     } else {
                         urlSettingForum = urlForum + 'classes/settings/settingsforum.php'
+                        console.log('nada' + urlSettingForum)
                     }
     
                     var active = 0;

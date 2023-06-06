@@ -27,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = "Moderador de fòrums";
-$string['pluginnameextra'] = '(Versió gratuïta)';
+$string['pluginnameextra'] = '(Versió Lite)';
 $string['developed'] = 'Desenvolupat per:';
 $string['eurecat'] = 'Eurecat Academy';
 $string['eurecatorg'] = 'Eurecat.org';
