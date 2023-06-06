@@ -169,7 +169,7 @@ async function woocommerce_api_active_forum(yui, apikey, product_id, email) {
 async function woocommerce_api_status_forum(yui, apikey, productid, email, plugin, privacy) {
     try {
         var data = '';
-        email = email.replace(/\s+/g, "");
+        email = email.toString().replace(/\s+/g, "");
         if (email.length == 0 || email == '') {
             validateEmailForum();
         }  else if (!productid  || productid != 39){
