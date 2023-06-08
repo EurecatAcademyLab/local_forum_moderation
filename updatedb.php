@@ -51,7 +51,6 @@ function getpostsfr($lastmodified, $maxnum) {
         $record->forum_id = $m->f_id;
         $record->course_id = $m->c_id;
         $prediction = predict($m->message);
-        var_dump($prediction);
         $record->rating = $prediction['rating'];
         switch ($record->rating) {
             case (2):
