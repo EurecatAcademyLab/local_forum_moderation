@@ -47,6 +47,28 @@ function setStatusForum(active, url) {
 }
 
 /**
+ * To get the product title
+ */
+function getProductTitleForum() {
+    let name = 'Forum Moderation Basic';
+    return name;
+}
+/**
+ * To get the Key
+ */
+function getFreeKeyForum() {
+    let name = 'd564dde308ff319571349c617a9185dec25893d1';
+    return name;
+}
+/**
+ * To get the product
+ */
+function getProductIdForum() {
+    let name = 39;
+    return name;
+}
+
+/**
  * Documentation for the setH function.
  * This function sends an AJAX request to a specified URL to update the H.
  * @param {string} h - indicate.
@@ -97,13 +119,13 @@ async function woocommerce_api_active_forum(yui, apikey, product_id, email) {
 
         let urlactualString = window.location.href;
         let newUrl = urlactualString.replace(/\/admin(.*)$/, '');
-        let finalUrl = newUrl + '/local/forum_moderation/classes/settings/forumsavehash.php'
+        let finalUrlForum = newUrl + '/local/forum_moderation/classes/settings/forumsavehash.php'
 
         const urlactualForum = new URL(window.location.href);
         const host = urlactualForum.host;
         const hash = await hashStringForum(host + 'forummoderation');
 
-        sethForum(hash, finalUrl, host);
+        sethForum(hash, finalUrlForum, host);
 
         var params = {
             instance: hash,
@@ -159,13 +181,13 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
         email = email.toString().replace(/\s+/g, "");
         if (email.length == 0 || email == '') {
             validateEmailForum();
-        } else if (apikey != 'd564dde308ff319571349c617a9185dec25893d1'|| apikey == 0 || apikey == '' || apikey.length == 0) {
+        } else if (apikey != getFreeKeyForum()|| apikey == 0 || apikey == '' || apikey.length == 0) {
             validateApikeyForum();
-        } else if (!productid  || productid != 39){
+        } else if (!productid  || productid != getProductIdForum()){
             validateProductForum();
         } else if ( privacy == 0){
             validatePrivacyForum();
-        } else if (apikey == 'd564dde308ff319571349c617a9185dec25893d1' && productid == 39 && plugin == 'forum_moderation') {
+        } else if (apikey == getFreeKeyForum() && productid == getProductIdForum() && plugin == 'forum_moderation') {
             validateApikeyCorrectForum();
             validateProductForumCorrect();
             var url = 'https://lab.eurecatacademy.org/?wc-api=wc-am-api&wc_am_action=status';
@@ -204,7 +226,6 @@ async function woocommerce_api_status_forum(yui, apikey, productid, email, plugi
                         console.log('admin' + urlSettingForum)
                     } else {
                         urlSettingForum = urlForum + 'classes/settings/settingsforum.php'
-                        console.log('nada' + urlSettingForum)
                     }
     
                     var active = 0;

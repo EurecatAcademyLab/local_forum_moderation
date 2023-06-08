@@ -130,6 +130,7 @@ if ($allowview) {
     $statusforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'status'));
 
     $output = "";
+    var_dump($statusforum->value);
 
     if ($statusforum->value == 1) {
         updatepostfr();

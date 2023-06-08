@@ -57,4 +57,16 @@ if ($urlrecord) {
     $urlrecord->value = $url;
     $DB->insert_record('config_plugins', $urlrecord);
 }
+//  Update Status.
+$status = $DB->get_record('config_plugins', array('plugin' => $plugin, 'name' => 'status'));
 
+if ($status) {
+    $status->value = 1;
+    $DB->update_record('config_plugins', $urlrecord);
+} else {
+    $status = new stdClass();
+    $status->plugin = $plugin;
+    $status->name = 'status';
+    $status->value = 1;
+    $DB->insert_record('config_plugins', $status);
+}
