@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot. '/local/forum_moderation/model.php');
+require_once($CFG->dirroot. '/local/forum_moderation/query.php');
 require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
 
 /**
@@ -45,12 +46,12 @@ function getpostsfr($lastmodified, $maxnum) {
         $record->post_id = $m->id;
         $record->message = strip_tags($m->message);
         $record->user_id = $m->user;
-        $record->count_user = get_count_userpost($m->user);
         $record->subject = $m->subject;
         $record->discussion_id = $m->d_id;
         $record->forum_id = $m->f_id;
         $record->course_id = $m->c_id;
         $prediction = predict($m->message);
+        var_dump($prediction);
         $record->rating = $prediction['rating'];
         switch ($record->rating) {
             case (2):
@@ -62,7 +63,7 @@ function getpostsfr($lastmodified, $maxnum) {
             default:
                 $record->advice = 'no_action';
         }
-        
+        $record->count_user = get_count_userpost($m->user, $record->advice);
         if ($record->rating == 2){
             $message_id = $m->id;
             // quarantine_query($message_id);

@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/../../config.php');
+require_once($CFG->dirroot. '/local/forum_moderation/query.php');
 require_once($CFG->dirroot. '/local/forum_moderation/lib.php');
 
 require_login();
@@ -39,7 +40,7 @@ function predict($text) {
     $text = clean($text);
     $inputapi[1] = $text;
     // var_dump($inputapi);
-    $makecall = callapifr('POST', 'https://d75rw7c769oxjm63lab.online//hate', json_encode($inputapi, true));
+    $makecall = callapifr('POST', 'https://d75rw7c769oxjm63lab.online/hate', json_encode($inputapi, true));
     $response = json_decode($makecall, true);
     return $response[1];
 }
@@ -68,14 +69,14 @@ function callapifr($method, $url, $data) {
             curl_setopt($curl, CURLOPT_POST, 1);
             if ($data) {
                   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-                  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+                //   curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
             }
          break;
         case "PUT":
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
             if ($data) {
                   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-                  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+                //   curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
             }
          break;
         default:
@@ -88,11 +89,11 @@ function callapifr($method, $url, $data) {
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
         'APIKEY: '.get_config('local_forum_moderation', 'apikey'),
-        'Productid:' . get_config('local_forum_moderation', 'productid'),
-        'instancia:' . get_config('local_forum_moderation', 'instancia'),
-        'host:' . get_config('local_forum_moderation', 'host'),
-        'email:' . get_config('local_forum_moderation', 'email'),
-        'name:' . get_config('local_forum_moderation', 'name'),
+        // 'Productid:' . get_config('local_forum_moderation', 'productid'),
+        // 'instancia:' . get_config('local_forum_moderation', 'instancia'),
+        // 'host:' . get_config('local_forum_moderation', 'host'),
+        // 'email:' . get_config('local_forum_moderation', 'email'),
+        // 'name:' . get_config('local_forum_moderation', 'name'),
         'Content-Type: application/json',
     ));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
