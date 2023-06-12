@@ -57,7 +57,7 @@ function join_tables_query_update($lastmodified, $maxnum) {
  * @return String $sql .
  */
 function forum_moderation_query($courseid, $checked, $alertselected) {
-    global $DB;
+    global $DB, $USER;
 
     $precheckcourse = $DB->record_exists('local_forum_moderation', array('course_id' => $courseid));
     $precheckrating = $DB->record_exists('local_forum_moderation', array('rating' => $alertselected));
@@ -70,23 +70,54 @@ function forum_moderation_query($courseid, $checked, $alertselected) {
         return $sql = ";";
     }
 
-    if ($precheckcourse) {
-        $sql =
-            "SELECT c.*
+    $userid = $USER->id;
+    if (!is_siteadmin()) {
+        if ($precheckcourse) {
+
+            $sql = "SELECT c.*
             FROM {local_forum_moderation} c
-            JOIN {forum_discussions} fd on fd.id = c.discussion_id
-            WHERE  c.rating > 0
-            AND fd.course =  $courseid  AND c.checked = $checked";
-    } else if (is_null($courseid) || $courseid == 0) {
-        $sql = "SELECT *
-        FROM {local_forum_moderation} c
-        WHERE c.rating > 0 AND c.checked = ".$checked;
+            JOIN {forum_discussions} fd ON fd.id = c.discussion_id
+            JOIN {course} c2 ON c2.id = fd.course
+            JOIN {context} ctx ON ctx.instanceid = c2.id
+            JOIN {role_assignments} ra ON ra.contextid = ctx.id
+            WHERE ra.userid = $userid
+            AND ra.roleid = 3
+            AND c.rating > 0
+            AND fd.course =  $courseid
+            AND c.checked = $checked";
+
+        } else if (is_null($courseid) || $courseid == 0) {
+            $sql = "SELECT c.*
+            FROM {local_forum_moderation} c
+            JOIN {forum_discussions} fd ON fd.id = c.discussion_id
+            JOIN {course} c2 ON c2.id = fd.course
+            JOIN {context} ctx ON ctx.instanceid = c2.id
+            JOIN {role_assignments} ra ON ra.contextid = ctx.id
+            WHERE ra.userid = $userid
+            AND ra.roleid = 3
+            AND c.rating > 0
+            AND c.checked = $checked";
+        }
+
+    } else {
+
+        if ($precheckcourse) {
+            $sql =
+            "SELECT c.*
+                FROM {local_forum_moderation} c
+                JOIN {forum_discussions} fd on fd.id = c.discussion_id
+                WHERE  c.rating > 0
+                AND fd.course =  $courseid  AND c.checked = $checked";
+        } else if (is_null($courseid) || $courseid == 0) {
+            $sql = "SELECT *
+            FROM {local_forum_moderation} c
+            WHERE c.rating > 0 AND c.checked = ".$checked;
+        }
     }
 
     if ($precheckrating && $alertselected != 0) {
         $sql .= ' AND c.rating = '.$alertselected;
     }
-
     return $sql.";";
 }
 

@@ -56,10 +56,13 @@ $pluginname = 'forum_moderation';
 
 $homeurl = new moodle_url('/');
 require_login();
-// require_capability('local/forum_moderation:viewmessages', context_system::instance());
+// R require_capability('local/forum_moderation:viewmessages', context_system::instance());.
 
-// if (!is_siteadmin() && $datos->teacher == 0) {
-//     redirect($homeurl, "This feature is only available for site administrators.", 5);
+$isteacher = get_courses_teacher();
+
+// if (!is_siteadmin() &&  $datos->teacher == 0) {
+// if (!is_siteadmin() ||  !empty($isteacher) ) {
+// redirect($homeurl, "This feature is only available for site administrators.", 5);
 // }
 
 // URL Parameters.
@@ -97,13 +100,7 @@ if (!empty($USER->newadminuser)) {
 
 $renderer = $PAGE->get_renderer('core_enrol');
 
-
-$isteacher = get_courses_teacher();
-var_dump($isteacher);
-
-// Add capability in your plugin, to delete any post.
-$allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
-if ($allowview) {
+if (!empty($isteacher) || is_siteadmin()) {
 
     $dform = new select_course();
     $premium = new premium_form();
@@ -148,9 +145,6 @@ if ($allowview) {
         } else {
             $dform->display();
         }
-
-        $isteacher = get_courses_teacher();
-        var_dump($isteacher);
 
         $output .= html_header($courseselected);
         $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);

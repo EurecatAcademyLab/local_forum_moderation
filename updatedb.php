@@ -63,9 +63,8 @@ function getpostsfr($lastmodified, $maxnum) {
                 $record->advice = 'no_action';
         }
         $record->count_user = get_count_userpost($m->user, $record->advice);
-        if ($record->rating == 2){
-            $message_id = $m->id;
-            // quarantine_query($message_id);
+        if ($record->rating == 2) {
+            $messageid = $m->id;
         }
 
         $record->reject = 0;

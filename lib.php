@@ -40,7 +40,7 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
                 get_string('pluginname', 'local_forum_moderation'),
                 new moodle_url('/local/forum_moderation/index.php')
             );
-        } 
+        }
     }
 }
 
@@ -50,11 +50,8 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
  * @param global_navigation $root Node representing the global navigation tree.
  */
 function local_forum_moderation_extend_navigation(global_navigation $root) {
-    
     if (isloggedin() && !isguestuser()) {
-
         $isteacher = get_courses_teacher();
-    
         if (!empty($isteacher) || is_siteadmin()) {
             $node = navigation_node::create(
                 get_string('pluginname', 'local_forum_moderation'),
@@ -66,18 +63,18 @@ function local_forum_moderation_extend_navigation(global_navigation $root) {
     }
 }
 
-function get_courses_teacher(){
+function get_courses_teacher() {
     global $DB, $USER;
     $userid = $USER->id;
-    // $userid = 6;
-    $sql = "SELECT u.username, c.id, c.fullname
-    FROM mdl_user u
-    JOIN mdl_role_assignments ra ON ra.userid = u.id
-    JOIN mdl_context ctx ON ctx.id = ra.contextid
-    JOIN mdl_course c ON c.id = ctx.instanceid
-    JOIN mdl_role r ON r.id = ra.roleid
-    WHERE u.id = $userid
-    AND r.shortname = 'editingteacher'";
+    $sql = "SELECT c.id, c.fullname
+            FROM {user} u
+            JOIN {role_assignments} ra ON ra.userid = u.id
+            JOIN {context} ctx ON ctx.id = ra.contextid
+            JOIN {course} c ON c.id = ctx.instanceid
+            JOIN {role} r ON r.id = ra.roleid
+            WHERE u.id = $userid
+            AND r.shortname = 'editingteacher'
+            ";
     $isteacher = $DB->get_records_sql($sql);
     return $isteacher;
 }
