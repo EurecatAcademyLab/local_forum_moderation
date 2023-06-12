@@ -56,11 +56,11 @@ $pluginname = 'forum_moderation';
 
 $homeurl = new moodle_url('/');
 require_login();
-require_capability('local/forum_moderation:viewmessages', context_system::instance());
+// require_capability('local/forum_moderation:viewmessages', context_system::instance());
 
-if (!is_siteadmin() && $datos->teacher == 0) {
-    redirect($homeurl, "This feature is only available for site administrators.", 5);
-}
+// if (!is_siteadmin() && $datos->teacher == 0) {
+//     redirect($homeurl, "This feature is only available for site administrators.", 5);
+// }
 
 // URL Parameters.
 // There are none.
@@ -144,6 +144,10 @@ if ($allowview) {
         } else {
             $dform->display();
         }
+
+
+        $isteacher = get_courses_teacher();
+        var_dump($isteacher);
 
         $output .= html_header($courseselected);
         $output .= html_writer::start_tag('ul', ["class" => 'nav nav-tabs', 'role' => "tablist"]);

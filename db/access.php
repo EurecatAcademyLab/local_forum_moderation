@@ -32,6 +32,7 @@ $capabilities = array(
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
             'manager' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
         )
     ),
     'local/forum_moderation:deleteanymessages' => array(
@@ -40,6 +41,7 @@ $capabilities = array(
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
             'manager' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
         )
     )
 );
