@@ -97,6 +97,10 @@ if (!empty($USER->newadminuser)) {
 
 $renderer = $PAGE->get_renderer('core_enrol');
 
+
+$isteacher = get_courses_teacher();
+var_dump($isteacher);
+
 // Add capability in your plugin, to delete any post.
 $allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
 if ($allowview) {
@@ -144,7 +148,6 @@ if ($allowview) {
         } else {
             $dform->display();
         }
-
 
         $isteacher = get_courses_teacher();
         var_dump($isteacher);

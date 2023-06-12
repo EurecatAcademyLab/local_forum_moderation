@@ -35,17 +35,12 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
     if (isloggedin() && !isguestuser()) {
         $isteacher = get_courses_teacher();
 
-        if ($isteacher) {
+        if (!empty($isteacher) || is_siteadmin()) {
             $frontpage->add(
                 get_string('pluginname', 'local_forum_moderation'),
                 new moodle_url('/local/forum_moderation/index.php')
             );
-        } else if (is_siteadmin()) {
-            $frontpage->add(
-                get_string('pluginname', 'local_forum_moderation'),
-                new moodle_url('/local/forum_moderation/index.php')
-            );
-        }
+        } 
     }
 }
 
@@ -60,20 +55,13 @@ function local_forum_moderation_extend_navigation(global_navigation $root) {
 
         $isteacher = get_courses_teacher();
     
-        if (!empty($isteacher)) {
+        if (!empty($isteacher) || is_siteadmin()) {
             $node = navigation_node::create(
                 get_string('pluginname', 'local_forum_moderation'),
                 new moodle_url('/local/forum_moderation/index.php')
             );
             $node->showinflatnavigation = true;
             $root->add_node($node);
-        } else if (is_siteadmin()) {
-                $node = navigation_node::create(
-                    get_string('pluginname', 'local_forum_moderation'),
-                    new moodle_url('/local/forum_moderation/index.php')
-                );
-                $node->showinflatnavigation = true;
-                $root->add_node($node);
         }
     }
 }
@@ -81,7 +69,7 @@ function local_forum_moderation_extend_navigation(global_navigation $root) {
 function get_courses_teacher(){
     global $DB, $USER;
     $userid = $USER->id;
-    $userid = 6;
+    // $userid = 6;
     $sql = "SELECT u.username, c.id, c.fullname
     FROM mdl_user u
     JOIN mdl_role_assignments ra ON ra.userid = u.id
