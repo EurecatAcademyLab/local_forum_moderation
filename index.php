@@ -47,7 +47,7 @@ $PAGE->requires->css(new \moodle_url($urlbase.'/b-colvis-2.3.3/b-html5-2.3.3/b-p
 $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js'), true);
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
 
-$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/table.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/tableforum.js'));
 $PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/woocomerceforum.js'));
 
 $PAGE->requires->css('/local/forum_moderation/styles/main.css');
@@ -61,7 +61,7 @@ require_login();
 $isteacher = get_courses_teacher();
 
 // if (!is_siteadmin() &&  $datos->teacher == 0) {
-// if (!is_siteadmin() ||  !empty($isteacher) ) {
+// if (empty($isteacher) || !is_siteadmin() ) {
 // redirect($homeurl, "This feature is only available for site administrators.", 5);
 // }
 

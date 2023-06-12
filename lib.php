@@ -63,6 +63,10 @@ function local_forum_moderation_extend_navigation(global_navigation $root) {
     }
 }
 
+/**
+ * Retrieves the courses that a given editing teacher is associated with.
+ * @return array Returns an array of course IDs and names that the editing teacher is associated with. 
+ */ 
 function get_courses_teacher() {
     global $DB, $USER;
     $userid = $USER->id;
