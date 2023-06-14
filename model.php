@@ -36,7 +36,7 @@ require_login();
  * @param Mixed $text .
  * @return Mixed .
  */
-function predict($text) {
+function predictforum($text) {
     $text = clean($text);
     $inputapi[1] = $text;
     $makecall = callapifr('POST', 'https://d75rw7c769oxjm63lab.online/hate', json_encode($inputapi, true));
