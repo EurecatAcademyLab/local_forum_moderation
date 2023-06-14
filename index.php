@@ -47,7 +47,7 @@ $PAGE->requires->css(new \moodle_url($urlbase.'/b-colvis-2.3.3/b-html5-2.3.3/b-p
 $PAGE->requires->js(new \moodle_url('https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js'), true);
 $PAGE->requires->css(new \moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'));
 
-$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/table.js'));
+$PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/tableforum.js'));
 $PAGE->requires->js(new moodle_url('/local/forum_moderation/amd/woocomerceforum.js'));
 
 $PAGE->requires->css('/local/forum_moderation/styles/main.css');
@@ -56,11 +56,14 @@ $pluginname = 'forum_moderation';
 
 $homeurl = new moodle_url('/');
 require_login();
-require_capability('local/forum_moderation:viewmessages', context_system::instance());
+// R require_capability('local/forum_moderation:viewmessages', context_system::instance());.
 
-if (!is_siteadmin() && $datos->teacher == 0) {
-    redirect($homeurl, "This feature is only available for site administrators.", 5);
-}
+$isteacher = get_courses_teacher();
+
+// if (!is_siteadmin() &&  $datos->teacher == 0) {
+// if (empty($isteacher) || !is_siteadmin() ) {
+// redirect($homeurl, "This feature is only available for site administrators.", 5);
+// }
 
 // URL Parameters.
 // There are none.
@@ -97,9 +100,7 @@ if (!empty($USER->newadminuser)) {
 
 $renderer = $PAGE->get_renderer('core_enrol');
 
-// Add capability in your plugin, to delete any post.
-$allowview = has_capability('local/forum_moderation:viewmessages', context_system::instance());
-if ($allowview) {
+if (!empty($isteacher) || is_siteadmin()) {
 
     $dform = new select_course();
     $premium = new premium_form();

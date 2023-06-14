@@ -30,7 +30,7 @@ require_login();
 
 
 $page = new moodle_page();
-$page->requires->js('/local/forum_moderation/amd/woocomerceforum.js');
+$page->requires->js('/local/forum_moderation/amd/modalwindow.js');
 
 /**
  * To call two other function
@@ -83,15 +83,15 @@ function reject_checked_query($id) {
  */
 function banner_accept() {
     global $PAGE;
-    $PAGE->requires->js('/local/forum_moderation/amd/woocomerceforum.js');
-    $PAGE->requires->js_init_call('createmodal()');
+    $PAGE->requires->js('/local/forum_moderation/amd/modalwindow.js');
+    $PAGE->requires->js_init_call('createmodalforum()');
 }
 
 /**
  * To past some hidden fields in the submit.
  */
 class accept_post extends moodleform {
-
+    
     /**
      * To Define the form accept.
      */
@@ -103,6 +103,7 @@ class accept_post extends moodleform {
         $accept,
         ['class' => 'acceptbutton_forum_moderation m-1']);
     }
+    
 
     /**
      * To redirect to que initial page forum_moderation.

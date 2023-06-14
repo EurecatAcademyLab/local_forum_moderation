@@ -50,7 +50,7 @@ function getpostsfr($lastmodified, $maxnum) {
         $record->discussion_id = $m->d_id;
         $record->forum_id = $m->f_id;
         $record->course_id = $m->c_id;
-        $prediction = predict($m->message);
+        $prediction = predictforum($m->message);
         $record->rating = $prediction['rating'];
         switch ($record->rating) {
             case (2):
@@ -63,9 +63,8 @@ function getpostsfr($lastmodified, $maxnum) {
                 $record->advice = 'no_action';
         }
         $record->count_user = get_count_userpost($m->user, $record->advice);
-        if ($record->rating == 2){
-            $message_id = $m->id;
-            // quarantine_query($message_id);
+        if ($record->rating == 2) {
+            $messageid = $m->id;
         }
 
         $record->reject = 0;

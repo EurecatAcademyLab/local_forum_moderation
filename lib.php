@@ -32,8 +32,10 @@ require_login();
  * @param navigation_node $frontpage Node representing the front page in the navigation tree.
  */
 function local_forum_moderation_extend_navigation_frontpage(navigation_node $frontpage) {
-    if (is_siteadmin()) {
-        if (isloggedin() && !isguestuser()) {
+    if (isloggedin() && !isguestuser()) {
+        $isteacher = get_courses_teacher();
+
+        if (!empty($isteacher) || is_siteadmin()) {
             $frontpage->add(
                 get_string('pluginname', 'local_forum_moderation'),
                 new moodle_url('/local/forum_moderation/index.php')
@@ -48,18 +50,35 @@ function local_forum_moderation_extend_navigation_frontpage(navigation_node $fro
  * @param global_navigation $root Node representing the global navigation tree.
  */
 function local_forum_moderation_extend_navigation(global_navigation $root) {
-
-    if (is_siteadmin()) {
-        if (isloggedin() && !isguestuser()) {
+    if (isloggedin() && !isguestuser()) {
+        $isteacher = get_courses_teacher();
+        if (!empty($isteacher) || is_siteadmin()) {
             $node = navigation_node::create(
                 get_string('pluginname', 'local_forum_moderation'),
                 new moodle_url('/local/forum_moderation/index.php')
             );
-
             $node->showinflatnavigation = true;
-
             $root->add_node($node);
         }
     }
 }
 
+/**
+ * Retrieves the courses that a given editing teacher is associated with.
+ * @return array Returns an array of course IDs and names that the editing teacher is associated with. 
+ */ 
+function get_courses_teacher() {
+    global $DB, $USER;
+    $userid = $USER->id;
+    $sql = "SELECT c.id, c.fullname
+            FROM {user} u
+            JOIN {role_assignments} ra ON ra.userid = u.id
+            JOIN {context} ctx ON ctx.id = ra.contextid
+            JOIN {course} c ON c.id = ctx.instanceid
+            JOIN {role} r ON r.id = ra.roleid
+            WHERE u.id = $userid
+            AND r.shortname = 'editingteacher'
+            ";
+    $isteacher = $DB->get_records_sql($sql);
+    return $isteacher;
+}

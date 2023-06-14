@@ -29,6 +29,10 @@ require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->dirroot. '/local/forum_moderation/table.php');
 require_login();
 
+$page = new moodle_page();
+$page->requires->js('/local/forum_moderation/amd/modalwindow.js');
+
+
 /**
  * Change values in forum_moderation and forum_posts table.
  * @param Int $id .
@@ -64,8 +68,8 @@ function delete_modify_post($id) {
  */
 function banner_delete() {
     global $PAGE;
-    $PAGE->requires->js('/local/forum_moderation/amd/woocomerceforum.js');
-    $PAGE->requires->js_init_call('createmodal()');
+    $PAGE->requires->js('/local/forum_moderation/amd/modalwindow.js');
+    $PAGE->requires->js_init_call('createmodalforum()');
 }
 
 /**

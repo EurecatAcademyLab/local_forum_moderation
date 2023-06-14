@@ -27,11 +27,12 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
 
     'local/forum_moderation:viewmessages' => array(
-        // A'riskbitmask' => RISK_SPAM,.
+        'riskbitmask' => RISK_SPAM,
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
             'manager' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
         )
     ),
     'local/forum_moderation:deleteanymessages' => array(
@@ -40,6 +41,7 @@ $capabilities = array(
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
             'manager' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
         )
     )
 );

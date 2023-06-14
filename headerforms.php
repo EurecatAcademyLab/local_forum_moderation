@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->libdir/formslib.php");
+require_once("./lib.php");
 /**
  * To selecta course form.
  */
@@ -40,7 +41,11 @@ class select_course extends moodleform {
         $mform = $this->_form; // Don't forget the underscore!
 
         $courses = array();
-        $getcourse = get_courses();
+        if (is_siteadmin()) {
+            $getcourse = get_courses();
+        } else {
+            $getcourse = get_courses_teacher();
+        }
 
         foreach ($getcourse as $course) {
             $courses[$course->id] = $course->fullname;
