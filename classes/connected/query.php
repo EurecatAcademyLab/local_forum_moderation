@@ -70,14 +70,14 @@ function call_woocomerce_status_forum() {
     $apikey = get_config('local_forum_moderation', 'apikey');
     $productid = get_config('local_forum_moderation', 'productid');
     $email = get_config('local_forum_moderation', 'email');
-    $privacyforum = $DB->get_record('config_plugins', array('plugin' => 'local_forum_moderation', 'name' => 'privacy'));
+    $privacyforum = get_config('local_forum_moderation', 'privacy');
     $plugin = 'forum_moderation';
     $data = array(
         "apikey" => $apikey,
         "productid" => $productid,
         'email' => $email,
         'plugin' => $plugin,
-        'privacyforum' => $privacyforum->value
+        'privacyforum' => $privacyforum
     );
     global $PAGE;
     $PAGE->requires->js('/local/forum_moderation/amd/woocomerceforum.js');
