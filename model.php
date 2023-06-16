@@ -39,7 +39,7 @@ require_login();
 function predictforum($text) {
     $text = clean($text);
     $inputapi[1] = $text;
-    $makecall = callapifr('POST', 'https://d75rw7c769oxjm63lab.online/hate', json_encode($inputapi, true));
+    $makecall = callapifrforum('POST', 'https://d75rw7c769oxjm63lab.online/hate', json_encode($inputapi, true));
     $response = json_decode($makecall, true);
     return $response[1];
 }
@@ -61,7 +61,7 @@ function clean($string) {
  * @param Mixed $data .
  * @return (String | Bolean).
  */
-function callapifr($method, $url, $data) {
+function callapifrforum($method, $url, $data) {
     $curl = curl_init();
     switch ($method) {
         case "POST":
